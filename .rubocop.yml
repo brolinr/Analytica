@@ -1,0 +1,98 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  DisplayCopNames: true
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'bin/*'
+    - 'config/**/*'
+    - 'db/**/migrate/**/*'
+    - 'db/**/*schema.rb'
+    - db/seeds.rb
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - lib/application_config_validator.rb
+    - app/models/config.rb
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/ClassLength:
+  Description: Class has too many lines
+  Enabled: true
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 60
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/views/**/*'
+    - 'lib/tasks/*.rake'
+    - 'spec/**/*'
+  Max: 50
+
+Layout/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/OptionalBooleanParameter:
+  Exclude:
+    - 'app/workers/**/*'
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Layout/TrailingWhitespace:
+    Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 10
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/lib/tasks/**/*'
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Performance/MethodObjectAsBlock:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
