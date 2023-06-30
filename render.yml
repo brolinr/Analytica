@@ -9,12 +9,12 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: Analytica-db
+          name: Analytica-web
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
 
 databases:
-  - name: Analytica-db
+  - name: Analytica-web
     plan: free
     postgresMajorVersion: 14
