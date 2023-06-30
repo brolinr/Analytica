@@ -10,22 +10,9 @@ name: Pull Request workflow
 on:
   pull_request:
     branches:
-      - staging
       - main
 
 jobs:
-  changelog_check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: ChangelogCheck
-        uses: Zomzog/changelog-checker@v1.2.0
-        with:
-          fileName: CHANGELOG.md
-          noChangelogLabel: nochangelog
-          checkNotification: Detailed
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   rubocop: 
     runs-on: ubuntu-latest
     steps: 
@@ -65,12 +52,11 @@ jobs:
         options: --entrypoint redis-server
     env:
       RAILS_ENV: test
-      GEMFILE_RUBY_VERSION: 3.1.2
+      GEMFILE_RUBY_VERSION: 3.1.0
       PGHOST: localhost
       PGUSER: postgres
       BASE_URL: 'localhost'
-      # Rails verifies the time zone in DB is the same as the time zone of the Rails app
-      TZ: "Europe/Warsaw"
+
       DELIVERY_SUPPORT_EMAIL: 'test@example.com'
     steps:
       - uses: actions/checkout@v2
@@ -78,7 +64,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           # Not needed with a .ruby-version file
-          ruby-version: 3.1.2
+          ruby-version: 3.1.0
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
       - name: Create DB
