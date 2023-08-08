@@ -37,7 +37,7 @@ class DeviseCreateCompanies < ActiveRecord::Migration[7.0]
       t.string :location
       t.string :address
       t.string :phone
-      t.string :terms_and_conditions
+      t.boolean :terms_and_conditions
       t.boolean :buyer
       t.boolean :seller
 

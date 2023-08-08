@@ -8,14 +8,14 @@
       to your account instead.
     </small>
 
-    <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
 
       <div class="row g-3 mt-4 text-dark">
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="col-sm-6">
           <%= f.label 'Company name', class: 'form-label' %>
-          <%= f.text_field :name, class: 'form-control' %>
+          <%= f.text_field :name, class: 'form-control', placeholder: "Analytica" %>
         </div>
 
         <div class="col-sm-6">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-sm-12 mb-2">
-          <%= f.label :email_address, class: 'form-label' %>
+          <%= f.label :email, class: 'form-label' %>
           <%= f.email_field :email, class: 'form-control', placeholder: "you@example.com" %>
         </div>
 
@@ -40,22 +40,22 @@
 
         <div class="col-6 mb-2">
           <%= f.label :certificate_of_incorporation, class: 'form-label' %>
-          <%= f.file_field :certificate_of_incorporation, class: 'form-control' %>
+          <%= f.file_field :certificate_of_incorporation,accept: 'application/pdf' , class: 'form-control' %>
         </div>
 
         <div class="col-6 mb-2">
           <%= f.label :tax_clearence, class: 'form-label' %>
-          <%= f.file_field :tax_clearence, class: 'form-control' %>
+          <%= f.file_field :tax_clearance,accept: 'application/pdf' , class: 'form-control' %>
         </div>
 
         <div class="col-6 mb-2">
           <%= f.label :cr5, class: 'text-uppercase form-label' %>
-          <%= f.file_field :cr5, class: 'form-control' %>
+          <%= f.file_field :cr5, accept: 'application/pdf' , class: 'form-control' %>
         </div>
 
         <div class="col-6 mb-3">
           <%= f.label :cr6, class: 'text-uppercase form-label' %>
-          <%= f.file_field :cr6, class: 'form-control' %>
+          <%= f.file_field :cr6, accept: 'application/pdf', class: 'form-control' %>
         </div>
 
         <div class="col-6">
@@ -69,7 +69,7 @@
         </div>
 
         <div class="form-check">
-          <%= f.check_box :terms_and_conditions, class: 'form-check-input' %>
+          <%= f.check_box :terms_and_conditions, class: 'form-check-input border-dark' %>
           <%= f.label 'I agree to the terms and conditions.', class:"form-check-label" %>
         </div>
 
