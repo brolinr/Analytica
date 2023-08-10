@@ -1,0 +1,83 @@
+<% provide(:title, 'Sign up') %>
+<div class="container row justify-content-center ms-5 g-5 px-5">
+  <div class="col-md-7 col-lg-8">
+    <h4 class="fw-bold ">Get started now!</h4>
+    <small class="mb-5">
+      Already registered?
+      <%= link_to "Sign in", new_company_session_path, class: "text-primary text-decoration-none" %>
+      to your account instead.
+    </small>
+
+    <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
+
+      <div class="row g-3 mt-4 text-dark">
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="col-sm-6">
+          <%= f.label 'Company name', class: 'form-label' %>
+          <%= f.text_field :name, class: 'form-control', placeholder: "Analytica" %>
+        </div>
+
+        <div class="col-sm-6">
+          <%= f.label :phone, class: 'form-label' %>
+          <%= f.telephone_field :phone, class: 'form-control', placeholder: "(024) 0123457" %>
+        </div>
+
+        <div class="col-sm-12 mb-2">
+          <%= f.label :email, class: 'form-label' %>
+          <%= f.email_field :email, class: 'form-control', placeholder: "you@example.com" %>
+        </div>
+
+        <div class="col-sm-6">
+          <%= f.label :address, class: 'form-label' %>
+          <%= f.text_field :address, class: 'form-control', placeholder: "1234 Street" %>
+        </div>
+
+        <div class="col-sm-6">
+          <%= f.label :location, class: 'form-label' %>
+          <%= f.text_field :location, class: 'form-control', placeholder: "Harare, Zimbabwe" %>
+        </div>
+
+        <div class="col-6 mb-2">
+          <%= f.label :certificate_of_incorporation, class: 'form-label' %>
+          <%= f.file_field :certificate_of_incorporation,accept: 'application/pdf' , class: 'form-control' %>
+        </div>
+
+        <div class="col-6 mb-2">
+          <%= f.label :tax_clearence, class: 'form-label' %>
+          <%= f.file_field :tax_clearance,accept: 'application/pdf' , class: 'form-control' %>
+        </div>
+
+        <div class="col-6 mb-2">
+          <%= f.label :cr5, class: 'text-uppercase form-label' %>
+          <%= f.file_field :cr5, accept: 'application/pdf' , class: 'form-control' %>
+        </div>
+
+        <div class="col-6 mb-3">
+          <%= f.label :cr6, class: 'text-uppercase form-label' %>
+          <%= f.file_field :cr6, accept: 'application/pdf', class: 'form-control' %>
+        </div>
+
+        <div class="col-6">
+          <%= f.label :password, class: 'form-label' %>
+          <%= f.password_field :password, class: 'form-control' %>
+        </div>
+
+        <div class="col-sm-6 mb-2">
+          <%= f.label :password_confirmation, class: 'form-label' %>
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+
+        <div class="form-check">
+          <%= f.check_box :terms_and_conditions, class: 'form-check-input border-dark' %>
+          <%= f.label 'I agree to the terms and conditions.', class:"form-check-label" %>
+        </div>
+
+        <%= f.submit "Create account", class: "w-100 btn btn-primary btn-lg" %>
+    <% end %>
+    <span class="text-muted">Forgot password? <span class="text-primary">Reset it </span>to a new one.</span>
+    <hr class="my-4">
+    </div>
+
+  </div>
+</div>
