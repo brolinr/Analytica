@@ -1,7 +1,28 @@
+# config/locales/en.yml
 en:
-  controllers:
-  models:
-    must_be_pdf: must be in PDF format!
-    company:
-      pdf_size: should be less than 5MB
-  views:
+  activerecord:
+    errors:
+      models:
+        company:
+          attributes:
+            terms_and_conditions:
+              blank: "Please accept the terms and conditions to continue"
+            certificate_of_incorporation:
+              blank: "Submit your certificate of incorporation to continue"
+              content_type: "must be in PDF format"
+              size: "should be less than 5MB"
+            tax_clearance:
+              blank: "Submit your tax clearance certificate to continue"
+              content_type: "must be in PDF format"
+              size: "should be less than 5MB"
+            cr5:
+              blank: "CR5 is required"
+              content_type: "must be in PDF format"
+              size: "should be less than 5MB"
+            cr6:
+              blank: "CR6 is required"
+              content_type: "must be in PDF format"
+              size: "should be less than 5MB"
+            logo:
+              content_type: "must be a valid image format"
+              size: "should be less than 5MB"

@@ -5,8 +5,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.0'
 
-gem 'activestorage-validator',              '~> 0.4.0'
 gem 'active_storage_validations',           '~> 0.9.8'
+gem 'activestorage-validator',              '~> 0.4.0'
 gem 'bootsnap',                             '~> 1.16.0', require: false
 gem 'cssbundling-rails',                    '~> 1.2.0'
 gem 'devise',                               '~> 4.8.1'
