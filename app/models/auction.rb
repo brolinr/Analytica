@@ -4,6 +4,7 @@ class Auction < ApplicationRecord
 
   belongs_to :company
   has_many :auction_registrations, dependent: :destroy
+  has_many :lots, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true
