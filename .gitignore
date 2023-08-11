@@ -42,3 +42,5 @@
 ./test
 .byebug_history
 ./test
+.env
+
