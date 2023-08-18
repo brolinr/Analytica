@@ -4,7 +4,7 @@ class CreateAuctions < ActiveRecord::Migration[7.0]
       t.string :title
       t.text :notes
       t.string :location
-      t.boolean :expired
+      t.boolean :expired, default: false
       t.datetime :start
       t.datetime :deadline
       t.references :company, null: false, foreign_key: true

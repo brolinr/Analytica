@@ -39,6 +39,8 @@
 
 /node_modules
 .idea
+.fleet
+.ruby-lsp
 ./test
 .byebug_history
 ./test

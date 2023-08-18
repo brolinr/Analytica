@@ -66,7 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_11_065509) do
     t.string "title"
     t.text "notes"
     t.string "location"
-    t.boolean "expired"
+    t.boolean "expired", default: false
     t.datetime "start"
     t.datetime "deadline"
     t.bigint "company_id", null: false

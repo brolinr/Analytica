@@ -1,4 +1,6 @@
 class Auction < ApplicationRecord
+  before_create :validate_start_date
+
   has_one_attached :image
   has_rich_text :description
 
@@ -11,14 +13,29 @@ class Auction < ApplicationRecord
   validates :location, presence: true
   validates :start, presence: true
   validates :deadline, presence: true
-  validate :deadline_is_later_than_start
+  validate :validate_dates
   validate :validate_company
 
-  private
+  def registered?(current_company)
+    registration = AuctionRegistration.find_by(auction_id: id, company_id: current_company)
 
-  def deadline_is_later_than_start
+    if registration
+      return 'REGISTERED'
+    else
+      return 'NOT REGISTERED'
+    end
+  end
+
+  private
+  def validate_dates
     if start.present? && deadline.present? && start >= deadline
       errors.add(:base, 'The deadline should be a date later than the start date')
+    end
+  end
+
+  def validate_start_date
+    if start.present? && start <= Time.current
+      errors.add(:base, 'The auction cannot start as a past date.')
     end
   end
 
