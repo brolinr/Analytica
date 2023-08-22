@@ -1,0 +1,37 @@
+<div class="container">
+  <nav>
+    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Auction</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Lots</button>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="d-flex justify-content-center align-items-center">
+        <%= render 'form' %>
+      </div>
+
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <%= render 'auctions/lots/form' %>
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageInput = document.querySelector('#image-input');
+        const imagePreview = document.querySelector('.image-preview');
+
+        imageInput.addEventListener('change', function() {
+            const selectedFile = imageInput.files[0];
+            if (selectedFile) {
+                const imageUrl = URL.createObjectURL(selectedFile);
+                imagePreview.innerHTML = `<img src="${imageUrl}" class="bd-placeholder-img rounded-top img-fluid" width="100%">`;
+            } else {
+                imagePreview.innerHTML = ''; // Clear preview if no file selected
+            }
+        });
+    });
+</script>

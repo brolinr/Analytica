@@ -1,8 +1,6 @@
-<% provide(:title, 'Create an auction') %>
-<div class="container row justify-content-center g-5 px-5">
-  <div class="col-8 col-lg-6">
-    <h4 class="fw-semibold text-center">Create the auction</h4>
-    <%= form_with(model: @auction, remote: true, method: :post, data: { turbo: false }) do |f| %>
+<div class="row mb-3">
+  <div class="col-sm-6 col-lg-8 border border-primary">
+    <%= form_with(url: , remote: true, method: :post, data: { turbo: false }) do |f| %>
       <div class="row g-3 mt-4 text-dark">
         <%= render 'partials/error_messages', object: f.object %>
 
@@ -37,9 +35,9 @@
         </div>
 
         <div class="col-6 mb-2">
-           <% if @auction.image.attached? %>
-              <%= image_tag @auction.image %>
-           <% end %>
+          <% if @auction.image.attached? %>
+            <%= image_tag @auction.image %>
+          <% end %>
           <%= f.label 'Add an image', class: 'form-label' %>
           <%= f.file_field :image, class: 'form-control' %>
         </div>
@@ -49,5 +47,7 @@
         <%= f.submit "Create auction", class: "col-sm-5 btn btn-primary btn-md" %>
       </div>
     <% end %>
+  </div>
+  <div class="col-sm-6 col-lg-4 border border-warning">
   </div>
 </div>

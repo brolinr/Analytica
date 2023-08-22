@@ -54,7 +54,8 @@ auction1 = Auction.create!(
   title: 'Auction 1',
   location: 'Location A',
   company: Company.first,
-  description: 'first',
+  description: 'This is a wider card with supporting text below as a natural
+            lead-in to additional content. This content is a little bit longer.',
   start: Time.now,
   deadline: Time.now + 5.days
 )
@@ -62,7 +63,8 @@ auction1 = Auction.create!(
 auction2 = Auction.create!(
   title: 'Auction 2',
   location: 'Location A',
-  description: 'first',
+  description: 'This is a wider card with supporting text below as a natural
+            lead-in to additional content. This content is a little bit longer.',
   company: Company.first,
   start: Time.now,
   deadline: Time.now + 5.days

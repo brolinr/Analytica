@@ -1,5 +1,5 @@
 class AuctionsController < ApplicationController
-  before_action :authenticate_company!, except: :show
+  before_action :authenticate_company!
   before_action :auction_params, only: %i[update create]
   before_action :auction, except: %i[create new index]
   before_action :buyer_user, except: %i[show index]
@@ -13,12 +13,12 @@ class AuctionsController < ApplicationController
   def create
     @auction = current_company.auctions.build(auction_params)
     if @auction.save
-      redirect_to auction_path(@auction.id),
-                                             flash: {
-                                               notice: 'Congratulations on creating
-                                                        your auction. You can now add
-                                                        lots to it.'
-                                             }
+      redirect_to edit_auction_path(@auction.id),
+                  flash: {
+                    notice: 'Congratulations on creating
+                             your auction. You can now add
+                             lots to it.'
+                  }
     else
       render :new
     end
@@ -26,18 +26,16 @@ class AuctionsController < ApplicationController
   end
 
   def show
-    @lots = auction.lots.order(:id)
+    @lots = auction.lots.order(:lot_number)
   end
 
-  def index
-
-  end
+  def index; end
 
   def edit; end
 
   def update
     if auction.update(auction_params)
-      redirect_to auction_path(auction), status: :created,
+      redirect_to edit_auction_path(auction),
                                          flash: { notice:  'Your auction has been successfully updated.' }
     else
       flash[:error] = auction.errors.full_messages
@@ -86,7 +84,7 @@ class AuctionsController < ApplicationController
     redirect_to auction_path(auction), flash: { notice: 'There was an error registering you for the auction.' }
   end
 
-  def company_profile;end
+  def company_profile; end
 
   private
 

@@ -3,6 +3,7 @@ class WatchedLot < ApplicationRecord
   belongs_to :company
 
   validate :validate_auction_expiration
+  validates :lot_id, uniqueness: { scope: :company_id, message: 'You have already added this lot to your collection' }
 
   private
 
