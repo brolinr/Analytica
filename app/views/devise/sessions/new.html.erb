@@ -2,16 +2,16 @@
 
 <div class="container">
   <div class="row justify-content-center g-5 px-5">
-    <div class="col-md-7 col-lg-8">
+    <div class="col-5 p-3 bg-light rounded pb-5 row justify-content-between">
       <h4 class="fw-bold ">Sign in to your account!</h4>
-      <small class="mb-5">
+      <small class="mb-4">
         Are you new?
         <%= link_to "Create an account", new_company_registration_path, class: "text-primary text-decoration-none" %>
         for your business instead.
       </small>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
-          <div class="row g-3 my-4 text-dark">
+          <div class="row g-3 text-dark">
             <div class="col-10 mb-2">
               <%= f.label :email_address, class: 'form-label' %>
               <%= f.email_field :email, class: 'form-control', placeholder: "you@example.com" %>
@@ -27,7 +27,7 @@
               <%= f.label 'Remember me on this computer.', class:"form-check-label" %>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 mb-3">
               <%= f.submit "Log in", class: "btn btn-primary btn-md" %>
             </div>
           </div>
