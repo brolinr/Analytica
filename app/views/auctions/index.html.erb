@@ -21,15 +21,26 @@
                 <div class="border-bottom border-primary-subtle">
                   <h4 class="h5 fw-bold text-warning bi-alarm">
                     ENDS: <%= auction.deadline.strftime('%a %d %b %Y').upcase %>
-                    <span class="h6 fw-bold float-end text-dark"><%=auction.registered?(current_company.id) %></span>
+                    <span class="h6 fw-bold float-end text-dark">
+                      <% if auction.registered?(current_company.id) %>
+                        REGISTERED
+                      <% else %>
+                        NOT REGISTERED
+                      <% end %>
+                    </span>
                   </h4>
 
                 </div>
                 <h2 class="card-title my-0 mb-2"><%= auction.title %></h2>
-                <div class="btn-group float-end">
-                  <%= link_to "#{pluralize(auction.lots.count, 'Lot')}", auction_path(auction), class: 'btn fw-bold btn-sm btn-dark' %>
-                  <%= link_to 'REGISTER TO BID', '#', class: 'btn fw-bold btn-sm btn-primary' %>
-                </div>
+                <% if auction.registered?(current_company) %>
+                  <%= link_to "#{pluralize(auction.lots.count, 'Lot')}", auction_path(auction), class: 'float-end btn fw-bold btn-sm btn-dark' %>
+                <% else %>
+                  <div class="btn-group float-end">
+                    <%= link_to "#{pluralize(auction.lots.count, 'Lot')}", auction_path(auction), class: 'btn fw-bold btn-sm btn-dark' %>
+                    <%= link_to 'REGISTER TO BID', register_company_auction_path(auction), class: 'btn fw-bold btn-sm btn-primary', data: {'turbo_method': :post} %>
+                  </div>
+                <% end %>
+
                 <h4 class="h5 fw-light text-secondary-emphasis" data-deadline="<%= auction.deadline %>" id="auction-countdown">
 
                 </h4>

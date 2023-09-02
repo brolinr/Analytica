@@ -1,0 +1,29 @@
+<% @auction.lots.each do |lot| %>
+  <div class="border border-secondary-subtle p-2 my-3">
+    <div class="border-bottom border-dark-subtle">
+      <h4 class="h5 fw-bold ">
+        LOT NUMBER: <%= lot.lot_number %>
+        <span class="h6 fw-bold float-end text-dark">
+            Asking price: $<%= lot.asking_price %>.00
+          </span>
+      </h4>
+
+    </div>
+    <h2 class="card-title my-0 ">
+      <%= lot.title %>
+      <div class="float-end">
+        <%= link_to "Delete Lot", auction_lot_path(@auction, lot), class: 'btn fw-bold btn-sm btn-danger', data: {turbo_method: :delete} %>
+      </div>
+    </h2>
+
+    <span class="text-secondary-emphasis my-1">
+        <%= lot.description %>
+      </span>
+    <span class="text-secondary-emphasis my-0">
+        Number of Items: <%= lot.quantity %>
+      </span>
+    <p class="text-secondary-emphasis my-0">
+      Condition of items: <%= lot.condition %>
+    </p>
+  </div>
+<% end %>

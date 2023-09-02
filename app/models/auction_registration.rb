@@ -2,6 +2,7 @@ class AuctionRegistration < ApplicationRecord
   belongs_to :company
   belongs_to :auction
 
+  validates :auction_id, uniqueness: { scope: :company_id, message: 'You are already registered' }
   validate :validate_auction_expiration
   validate :validate_company
 

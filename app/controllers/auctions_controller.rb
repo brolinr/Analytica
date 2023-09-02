@@ -27,6 +27,7 @@ class AuctionsController < ApplicationController
 
   def show
     @lots = auction.lots.order(:lot_number)
+    @bid = Bid.new
   end
 
   def index; end
@@ -62,10 +63,8 @@ class AuctionsController < ApplicationController
   end
 
   def extend_deadline
-    auction.deadline = auction.deadline.to_time + params[:extended_days].to_i.days
-
-    if auction.save
-      redirect_to auction_path(auction), flash: { notice: "The auction has been extended by #{params[:extended_days]} days." }
+    if auction.update(deadline: auction.deadline.to_time + params[:auction][:extended_days].to_i.days)
+      redirect_to edit_auction_path(auction), flash: { notice: "The auction has been extended by #{params[:auction][:extended_days]} days." }
       #create job for notifications in future
     end
   end
@@ -77,14 +76,18 @@ class AuctionsController < ApplicationController
       #in future respond with turbo
       redirect_to auction_path(registration.auction), flash: { notice: 'Your registration has been approved. You can start bidding.' }
     else
-      flash[:error] = registration.errors.full_messages
-      render auction_path(auction)
+      redirect_to auction_path(auction), flash: { notice: registration.errors.full_messages }
     end
-  rescue StandardError
-    redirect_to auction_path(auction), flash: { notice: 'There was an error registering you for the auction.' }
+
   end
 
   def company_profile; end
+
+  def auctions_registered
+    registered_auctions = AuctionRegistration.where(company_id: Company.last.id).pluck(:auction_id)
+
+    @auctions = Auction.where(location: current_company.location, expired: false, id: registered_auctions).order(deadline: :asc)
+  end
 
   private
 

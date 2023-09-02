@@ -1,8 +1,6 @@
 <div class="col-8 col-lg-6">
   <h4 class="fw-semibold text-center mb-4">
     Update auction
-    <button type="button" class="my-5 btn btn-sm btn-warning float-end" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">Delete auction</button>
   </h4>
   <%= form_with(model: @auction, remote: true, method: :patch, data: { turbo: false }) do |f| %>
     <div class="row g-3 mt-4 text-dark">
@@ -21,16 +19,6 @@
       <div class="col-sm-12">
         <%= f.label 'Additional notes', class: 'form-label' %>
         <%= f.text_area :notes, class: 'form-control' %>
-      </div>
-
-      <div class="col-sm-6 mb-2">
-        <%= f.label "Auction start date", class: 'form-label' %>
-        <%= f.datetime_field :start, class: 'form-control', required: true %>
-      </div>
-
-      <div class="col-sm-6">
-        <%= f.label 'Auction deadline date', class: 'form-label' %>
-        <%= f.datetime_field :deadline, class: 'form-control', required: true %>
       </div>
 
       <div class="col-sm-6">
@@ -56,8 +44,16 @@
       <div class="col-sm-3"></div>
 
       <%= f.submit "Save Changes", class: "col-sm-5 btn btn-primary btn-md" %>
+
+      <span class="btn-group my-3">
+      <button type="button" class="my-5 btn btn-sm btn-warning float-end" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">Delete auction</button>
+      <button type="button" class="my-5 btn btn-sm btn-primary float-end" data-bs-toggle="modal"
+              data-bs-target="#extentdeadline">Extend deadline</button>
+    </span>
     </div>
   <% end %>
+  <hr>
 </div>
 
 <!-- Modal -->
@@ -76,6 +72,25 @@
         <%= link_to "Delete", @auction, method: :delete, data: { "turbo": :false },
                     class: "text-light rounded p-2 bg-danger text-decoration-none" %>
 
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="extentdeadline" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Extend auction deadline!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(url: extend_deadline_auction_url(@auction), model: @auction, method: :post, data: { turbo: true }) do |f| %>
+          <%= f.label 'Days (Max: 5 days)', class: 'form-label' %>
+          <%= f.number_field :extended_days, class: 'form-control my-2', max: 5 %>
+          <%= f.submit 'Extend', class: "text-light rounded p-2 bg-danger text-decoration-none"%>
+        <% end %>
       </div>
     </div>
   </div>

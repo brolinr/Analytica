@@ -1,5 +1,5 @@
 class Lot < ApplicationRecord
-  before_create :assign_lot_number
+  before_create :assign_lot_number, :set_location
   belongs_to :company
   belongs_to :auction
   has_rich_text :description
@@ -14,7 +14,13 @@ class Lot < ApplicationRecord
   validate :validate_company
 
   def collected?(current_company_id)
-    watched_lots.exists?(lot_id: id, company_id: current_company_id)
+    watched_lot = WatchedLot.find_by(lot_id: id, company_id: current_company_id)
+
+    if watched_lot.present?
+      true
+    else
+      false
+    end
   end
 
   def collect(current_company_id)
@@ -24,6 +30,18 @@ class Lot < ApplicationRecord
   def remove_collection(current_company_id)
     watched_lot = watched_lots.find_by!(lot_id: id, company_id: current_company_id)
     watched_lot&.destroy if watched_lot
+  end
+
+  def current_bid
+    bids.last
+  end
+
+  def has_lost_lot(current_company)
+    if bids.any? && bids.last.company != current_company && bids.pluck(:company_id).include?(current_company.id)
+      true
+    else
+      false
+    end
   end
 
   private
@@ -49,5 +67,9 @@ class Lot < ApplicationRecord
   def assign_lot_number
     max_lot_number = auction.lots.maximum(:lot_number) || 0
     self.lot_number = max_lot_number + 1
+  end
+
+  def set_location
+    self.location = auction.location
   end
 end

@@ -1,12 +1,12 @@
 <h4 class="fw-semibold text-center">LOTS AVAILABLE</h4>
 <div class="container">
   <div class="row d-flex flex-wrap justify-content-center">
-    <% @lots.each do |lot| %>
+    <% @collections.each do |lot| %>
       <div class="border border-secondary-subtle p-2 my-3 col-sm-3 card rounded shadow mx-2">
         <div class="border-bottom border-dark-subtle">
           <h4 class="h5 fw-bold">
             LOT NUMBER: <%= lot.lot_number %>
-            <%= link_to collect_auction_lot_path(@auction, lot), data: {turbo_method: :post} do %>
+            <%= link_to collect_auction_lot_path(lot.auction, lot), data: {turbo_method: :post} do %>
               <% if lot.collected?(current_company.id) %>
                 <i class="bi-heart-fill text-primary h5 float-end"></i>
               <% else %>
@@ -46,13 +46,13 @@
 
         <div class="d-flex justify-content-center mt-3">
           <% if lot.auction.registered?(current_company) %>
-          <div class="btn-group col-md-10">
-            <%= link_to "View Lot", auction_lot_path(@auction, lot), class: 'btn fw-bold btn-sm btn-primary' %>
-            <button type="button" class="btn fw-bold btn-sm btn-outline-primary" data-bs-toggle="modal"
-                    data-bs-target=<%= "#new-bid-#{lot.lot_number}" %>>Place a bid</button>
-          </div>
+            <div class="btn-group col-md-10">
+              <%= link_to "View Lot", auction_lot_path(lot.auction, lot), class: 'btn fw-bold btn-sm btn-primary' %>
+              <button type="button" class="btn fw-bold btn-sm btn-outline-primary" data-bs-toggle="modal"
+                      data-bs-target=<%= "#new-bid-#{lot.lot_number}" %>>Place a bid</button>
+            </div>
           <% else %>
-            <%= link_to "View Lot", auction_lot_path(@auction, lot), class: 'col-md-10 btn fw-bold btn-sm btn-primary' %>
+            <%= link_to "View Lot", auction_lot_path(lot.auction, lot), class: 'col-md-10 btn fw-bold btn-sm btn-primary' %>
           <% end %>
         </div>
       </div>

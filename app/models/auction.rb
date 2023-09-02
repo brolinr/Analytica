@@ -20,9 +20,9 @@ class Auction < ApplicationRecord
     registration = AuctionRegistration.find_by(auction_id: id, company_id: current_company)
 
     if registration
-      return 'REGISTERED'
+      true
     else
-      return 'NOT REGISTERED'
+      false
     end
   end
 
