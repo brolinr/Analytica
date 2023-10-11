@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Lot < ApplicationRecord
   before_create :assign_lot_number, :set_location
   belongs_to :company
@@ -5,22 +7,17 @@ class Lot < ApplicationRecord
   has_rich_text :description
 
   has_many :bids, dependent: :destroy
-  has_many :watched_lots
+  has_many :watched_lots, dependent: :nullify
 
   validates :title, presence: true
   validates :description, presence: true
   validate :auction_has_expired
-  validate :validate_location
   validate :validate_company
 
   def collected?(current_company_id)
     watched_lot = WatchedLot.find_by(lot_id: id, company_id: current_company_id)
 
-    if watched_lot.present?
-      true
-    else
-      false
-    end
+    watched_lot.present?
   end
 
   def collect(current_company_id)
@@ -29,7 +26,7 @@ class Lot < ApplicationRecord
 
   def remove_collection(current_company_id)
     watched_lot = watched_lots.find_by!(lot_id: id, company_id: current_company_id)
-    watched_lot&.destroy if watched_lot
+    watched_lot&.destroy
   end
 
   def current_bid
@@ -37,31 +34,25 @@ class Lot < ApplicationRecord
   end
 
   def has_lost_lot(current_company)
-    if bids.any? && bids.last.company != current_company && bids.pluck(:company_id).include?(current_company.id)
-      true
-    else
-      false
-    end
+    bids.any? && bids.last.company != current_company && bids.pluck(:company_id).include?(current_company.id)
   end
 
   private
 
   def auction_has_expired
-    if Time.current >= auction.deadline.to_time
+    if auction.present? && Time.current >= auction.deadline.to_time
       errors.add(:base, 'You cannot add a lot to this auction. The deadline for the auction has already passed.')
     end
   end
 
   def validate_location
-    if auction.location != location
+    if auction.present? && auction.location != location
       errors.add(:base, 'You the location of the lot cannot be different to the location of the auction')
     end
   end
 
   def validate_company
-    if company.present? && !company.buyer?
-      errors.add(:base, 'Only buyers can create lots. Upgrade your subscription')
-    end
+    errors.add(:base, 'Only buyers can create lots. Upgrade your subscription') if company.present? && !company.buyer?
   end
 
   def assign_lot_number

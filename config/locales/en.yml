@@ -26,3 +26,6 @@ en:
             logo:
               content_type: "must be a valid image format"
               size: "should be less than 5MB"
+        auction:
+          errors:
+            deadline_later: The deadline should be a date later than the start date

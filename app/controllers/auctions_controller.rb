@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuctionsController < ApplicationController
   before_action :authenticate_company!
   before_action :auction_params, only: %i[update create]
@@ -22,7 +24,7 @@ class AuctionsController < ApplicationController
     else
       render :new
     end
-    #create job for notifications in future for all the companies in the region
+    # create job for notifications in future for all the companies in the region
   end
 
   def show
@@ -37,12 +39,12 @@ class AuctionsController < ApplicationController
   def update
     if auction.update(auction_params)
       redirect_to edit_auction_path(auction),
-                                         flash: { notice:  'Your auction has been successfully updated.' }
+                  flash: { notice: 'Your auction has been successfully updated.' }
     else
       flash[:error] = auction.errors.full_messages
       render :edit
     end
-    #create job for notifications in future if auction is live
+    # create job for notifications in future if auction is live
   rescue StandardError
     flash[:error] = 'There was an error while updating your auction.'
     render :edit
@@ -56,7 +58,7 @@ class AuctionsController < ApplicationController
       flash[:error] = auction.errors.full_messages
       render :edit
     end
-    #create job for notifications in future if the auction was still live
+    # create job for notifications in future if the auction was still live
   rescue StandardError
     flash[:error] = 'There was an error while deleting your auction.'
     render :edit
@@ -64,8 +66,9 @@ class AuctionsController < ApplicationController
 
   def extend_deadline
     if auction.update(deadline: auction.deadline.to_time + params[:auction][:extended_days].to_i.days)
-      redirect_to edit_auction_path(auction), flash: { notice: "The auction has been extended by #{params[:auction][:extended_days]} days." }
-      #create job for notifications in future
+      redirect_to edit_auction_path(auction),
+                  flash: { notice: "The auction has been extended by #{params[:auction][:extended_days]} days." }
+      # create job for notifications in future
     end
   end
 
@@ -73,12 +76,12 @@ class AuctionsController < ApplicationController
     registration = AuctionRegistration.new(company_id: current_company.id, auction_id: auction.id)
 
     if registration.save
-      #in future respond with turbo
-      redirect_to auction_path(registration.auction), flash: { notice: 'Your registration has been approved. You can start bidding.' }
+      # in future respond with turbo
+      redirect_to auction_path(registration.auction),
+                  flash: { notice: 'Your registration has been approved. You can start bidding.' }
     else
       redirect_to auction_path(auction), flash: { notice: registration.errors.full_messages }
     end
-
   end
 
   def company_profile; end
@@ -86,7 +89,8 @@ class AuctionsController < ApplicationController
   def auctions_registered
     registered_auctions = AuctionRegistration.where(company_id: Company.last.id).pluck(:auction_id)
 
-    @auctions = Auction.where(location: current_company.location, expired: false, id: registered_auctions).order(deadline: :asc)
+    @auctions = Auction.where(location: current_company.location, expired: false,
+                              id: registered_auctions).order(deadline: :asc)
   end
 
   private
@@ -114,9 +118,7 @@ class AuctionsController < ApplicationController
   def expire_auctions
     @auctions = Auction.where(location: current_company.location, expired: false).order(deadline: :asc)
     @auctions.each do |auction|
-      if auction.deadline.to_time < Time.current
-        auction.update!(expired: true)
-      end
+      auction.update!(expired: true) if auction.deadline.to_time < Time.current
     end
   end
 end

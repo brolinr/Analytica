@@ -38,6 +38,7 @@ group :development, :test do
   gem 'rubocop-performance',                '~> 1.14.3'
   gem 'rubocop-rails',                      '~> 2.14.2'
   gem 'rubocop-rspec',                      '~> 2.8'
+  gem 'shoulda-matchers',                   '~> 5.3'
 end
 
 group :development do

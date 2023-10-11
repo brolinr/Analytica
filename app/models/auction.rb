@@ -1,6 +1,6 @@
-class Auction < ApplicationRecord
-  before_create :validate_start_date
+# frozen_string_literal: true
 
+class Auction < ApplicationRecord
   has_one_attached :image
   has_rich_text :description
 
@@ -13,6 +13,7 @@ class Auction < ApplicationRecord
   validates :location, presence: true
   validates :start, presence: true
   validates :deadline, presence: true
+
   validate :validate_dates
   validate :validate_company
 
@@ -27,25 +28,21 @@ class Auction < ApplicationRecord
   end
 
   private
-  def validate_dates
-    if start.present? && deadline.present? && start >= deadline
-      errors.add(:base, 'The deadline should be a date later than the start date')
-    end
-  end
 
-  def validate_start_date
-    if start.present? && start <= Time.current
-      errors.add(:base, 'The auction cannot start as a past date.')
+  def validate_dates
+    if start.present? && deadline.present? && (start >= deadline)
+      errors.add(:base, 'The deadline should be a date later than the start date')
     end
   end
 
   def validate_company
     if company.present? && !company.buyer?
-      errors.add(:base, 'Only buyers can create auctions. Upgrade your subscription')
+      errors.add(:base,
+                 'Only buyers can create auctions. Upgrade your subscription')
     end
-
-    if company.location != location
-      errors.add(:base, "You can't create an auction outside your region.")
+    if location.present? && company.location != location
+      errors.add(:base,
+                 "You can't create an auction outside your region.")
     end
   end
 end

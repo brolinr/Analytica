@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class LotsController < ApplicationController
   before_action :auction, except: :collections
   before_action :correct_company, except: :collections
-  before_action :lot, except: [:create, :collections]
+  before_action :lot, except: %i[create collections]
 
   def show; end
 
@@ -38,18 +40,19 @@ class LotsController < ApplicationController
 
     if @collection.present?
       @collection.destroy
-      flash[:notice] = "Lot removed from collection!"
-      redirect_to request.referrer
+      flash[:notice] = 'Lot removed from collection!'
     else
       @collection = WatchedLot.new(company_id: current_company.id, lot_id: @lot.id)
       flash[:notice] = 'Lot Collected' if @collection.save
-      redirect_to request.referrer
     end
+    redirect_to request.referer if request.referer.present?
   end
 
   def collections
-    company_watched_lots = WatchedLot.where(company_id: Company.last.id).pluck(:lot_id)
+    company_watched_lots = WatchedLot.where(company_id: current_company.id).pluck(:lot_id)
     @collections = Lot.where(id: company_watched_lots)
+    @live_collections = ''
+    @expired_auctionss = ''
 
     @bid = Bid.new
   end

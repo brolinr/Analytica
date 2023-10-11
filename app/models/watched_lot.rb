@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WatchedLot < ApplicationRecord
   belongs_to :lot
   belongs_to :company
@@ -8,7 +10,7 @@ class WatchedLot < ApplicationRecord
   private
 
   def validate_auction_expiration
-    if Time.current >= lot.auction.deadline.to_time
+    if lot.present? && lot.auction.expired
       errors.add(:base, 'The deadline for the auction has already passed. You cannot watch the lot')
     end
   end

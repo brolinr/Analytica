@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuctionRegistration < ApplicationRecord
   belongs_to :company
   belongs_to :auction

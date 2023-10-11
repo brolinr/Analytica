@@ -34,12 +34,12 @@ class Company < ApplicationRecord
                             size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
   validates :cr5, presence:
             { message: 'Submit your CR5 certificate to continue' },
-            content_type: { in: 'application/pdf', message: 'must be in PDF format' },
-            size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
+                  content_type: { in: 'application/pdf', message: 'must be in PDF format' },
+                  size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
   validates :cr6, presence:
             { message: 'Submit your CR6 certificate to continue' },
-            content_type: { in: 'application/pdf', message: 'must be in PDF format' },
-            size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
+                  content_type: { in: 'application/pdf', message: 'must be in PDF format' },
+                  size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
   validates :logo, presence: false,
                    content_type: { in: %w[image/jpeg image/png], message: 'must be a valid image format' },
                    size: { less_than: 5.megabytes, message: 'should be less than 5MB' }

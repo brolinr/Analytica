@@ -16,7 +16,7 @@ buyer_company = Company.create!(
   terms_and_conditions: true,
   buyer: true
 ) do |company|
-  pdf_path = Rails.root.join('test.pdf')
+  pdf_path = Rails.root.join('spec/factories/media/documents/test.pdf')
 
   company.tax_clearance.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
   company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
