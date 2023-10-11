@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_08_064933) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_21_084621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -42,6 +52,47 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_064933) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "auction_registrations", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "auction_id", null: false
+    t.boolean "company_approved"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auction_id"], name: "index_auction_registrations_on_auction_id"
+    t.index ["company_id"], name: "index_auction_registrations_on_company_id"
+  end
+
+  create_table "auctions", force: :cascade do |t|
+    t.string "title"
+    t.text "notes"
+    t.string "location"
+    t.boolean "expired", default: false
+    t.datetime "start"
+    t.datetime "deadline"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_auctions_on_company_id"
+  end
+
+  create_table "bids", force: :cascade do |t|
+    t.integer "amount"
+    t.text "delivery_options"
+    t.string "location"
+    t.bigint "lot_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_bids_on_company_id"
+    t.index ["lot_id"], name: "index_bids_on_lot_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -68,6 +119,39 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_064933) do
     t.index ["reset_password_token"], name: "index_companies_on_reset_password_token", unique: true
   end
 
+  create_table "lots", force: :cascade do |t|
+    t.string "title"
+    t.integer "quantity"
+    t.integer "asking_price"
+    t.string "location"
+    t.string "condition"
+    t.bigint "company_id", null: false
+    t.bigint "auction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "lot_number"
+    t.index ["auction_id"], name: "index_lots_on_auction_id"
+    t.index ["company_id"], name: "index_lots_on_company_id"
+  end
+
+  create_table "watched_lots", force: :cascade do |t|
+    t.bigint "lot_id", null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_watched_lots_on_company_id"
+    t.index ["lot_id"], name: "index_watched_lots_on_lot_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "auction_registrations", "auctions"
+  add_foreign_key "auction_registrations", "companies"
+  add_foreign_key "auctions", "companies"
+  add_foreign_key "bids", "companies"
+  add_foreign_key "bids", "lots"
+  add_foreign_key "lots", "auctions"
+  add_foreign_key "lots", "companies"
+  add_foreign_key "watched_lots", "companies"
+  add_foreign_key "watched_lots", "lots"
 end

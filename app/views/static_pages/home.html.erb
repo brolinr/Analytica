@@ -20,23 +20,87 @@
       </header>
     </div>
   </div>
-  <div class="layer px-4 py-5 text-light">
-    <h1 class="display-5 fw-bold">Browse available Tenders</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">
-        Quickly design and customize responsive mobile-first sites with Bootstrap, the
-        world’s most popular front-end open source toolkit and powerful JavaScript plugins.
+
+  <div class="col-xxl-10 layer px-4 py-5 text-light">
+    <h1 class="display-4 fw-bold mb-3">Explore the World of Procurement</h1>
+    <div class="col-lg-6 mx-auto my-sm-3">
+      <p class="lead mb-lg-5">
+        Unlock opportunities, streamline processes, and discover the power of efficient
+        procurement with Analytica. Dive into a world of tenders, RFQs, and auctions, and
+        transform your procurement experience today.
       </p>
     </div>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+      <button type="button" class="btn btn-primary btn-lg px-4 gap-3">RFQ Board</button>
+      <button type="button" class="btn btn-outline-light btn-lg px-4">Tenders Board</button>
+    </div>
   </div>
 </div>
 
+<div class="bg-secondary-subtle px-4 pb-5 pt-3 mb-5">
+  <h1 class="display-4 text-center fw-semibold my-3 text-dark-emphasis">Discover Our Features</h1>
+  <div class="row g-4 py-4 row-cols-1 row-cols-lg-3">
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="bi-arrow-repeat"></i>
+      </div>
+      <h2 class="text-primary">Reverse Auction</h2>
+      <p class="text-light-emphasis">
+        <strong>Discover the potential of reverse auctions in procurement:</strong>
+        Our platform unveils a powerful strategy to maximize savings and
+        efficiency through innovative bidding methods. Elevate your procurement
+        process with our solution.
+      </p>
+      <%= link_to new_company_registration_path, class: 'icon-link d-flex' do %>
+        <span>
+          Sign up to explore
+          <i class="ms-1 bi-chevron-right"></i>
+        </span>
+      <% end %>
+    </div>
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="bi-file-text"></i>
+      </div>
+      <h2 class="text-primary">Request for Quotations (RFQ)</h2>
+      <p class="text-light-emphasis">
+        <strong>Enhance procurement efficiency with our RFQ platform:</strong> Seamlessly request quotes,
+        compare supplier offers, negotiate terms, and drive cost savings. Elevate your sourcing
+        strategy with our RFQ solution.
+      </p>
+      <%= link_to new_company_registration_path, class: 'icon-link d-flex' do %>
+        <span>
+          Visit the board
+          <i class="ms-1 bi-chevron-right"></i>
+        </span>
+      <% end %>
+    </div>
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient">
+        <i class="bi-toggles2"></i>
+      </div>
+      <h2 class="text-primary">Logistics</h2>
+      <p class="text-light-emphasis">
+        <strong>Explore opportunities on our Logistics Jobs Board:</strong>
+        Find the latest logistics roles,
+        connect with employers, and advance your career in the logistics industry. Your
+        gateway to logistics job success awaits!
+      </p>
+      <%= link_to new_company_registration_path, class: 'icon-link d-flex' do %>
+        <span>
+          Visit the board
+          <i class="ms-1 bi-chevron-right"></i>
+        </span>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<div class="container">
-  <h2 class="m-4 text-center">Featured jobs</h2>
+<div class="container bg-white">
+  <h2 class="m-5 text-center display-4">Logistics jobs</h2>
   <div class="row mb-2">
     <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative">
+      <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col-auto d-none d-lg-block">
           <svg class="bd-placeholder-img p-3" width="125" height="125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
         </div>
@@ -55,7 +119,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative">
+      <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col-auto d-none d-lg-block">
           <svg class="bd-placeholder-img p-3" width="125" height="125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
         </div>
@@ -74,7 +138,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative">
+      <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col-auto d-none d-lg-block">
           <svg class="bd-placeholder-img p-3" width="125" height="125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
         </div>
@@ -93,7 +157,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative">
+      <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col-auto d-none d-lg-block">
           <svg class="bd-placeholder-img p-3" width="125" height="125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
         </div>
@@ -113,81 +177,3 @@
   </div>
 </div>
 
-<div class=" px-4 py-5 theme-gray mb-5">
-  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-    <div class="feature col">
-      <div class="feature-icon bg-primary bg-gradient">
-        <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
-      </div>
-      <h2>Featured title</h2>
-      <p class="text-dark">Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-      <a href="#" class="icon-link">
-        Call to action
-        <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
-      </a>
-    </div>
-    <div class="feature col">
-      <div class="feature-icon bg-primary bg-gradient">
-        <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
-      </div>
-      <h2>Featured title</h2>
-      <p class="text-dark">Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-      <a href="#" class="icon-link">
-        Call to action
-        <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
-      </a>
-    </div>
-    <div class="feature col">
-      <div class="feature-icon bg-primary bg-gradient">
-        <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
-      </div>
-      <h2>Featured title</h2>
-      <p class="text-dark">Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-      <a href="#" class="icon-link">
-        Call to action
-        <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
-      </a>
-    </div>
-  </div>
-</div>
-
-<div class="container px-4 ">
-  <h2 class="text-center mb-5">Latest Blog Post</h2>
-  <div class="row row-cols-1 row-cols-lg-3">
-    <div class="col mb-2">
-      <div class="card">
-        <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-
-        <div class="card-body">
-          <strong>Card title</strong>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="stretched-link">Read more</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col mb-2">
-      <div class="card">
-        <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-
-        <div class="card-body">
-          <strong>Card title</strong>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="stretched-link">Read more</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col mb-2">
-      <div class="card">
-        <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-
-        <div class="card-body">
-          <strong>Card title</strong>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="stretched-link">Read more</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

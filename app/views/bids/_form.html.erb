@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="col-8 col-lg-6">
+      <h4 class="fw-semibold text-center">Create offer</h4>
+      <%= form_with(model: @bid, url: auction_lot_bids_url(lot.auction, lot), method: :post, data: { turbo: false }) do |f| %>
+        <div class="row g-3 mt-4 text-dark">
+          <%= render 'partials/error_messages', object: f.object %>
+
+          <div class="col-sm-12 input-group">
+            <%= f.label 'Total Amount ($)', class: 'input-group-text text-primary' %>
+            <%= f.number_field :amount, class: 'form-control', required: true %>
+          </div>
+
+          <div class="col-sm-12">
+            <%= f.label :delivery_options, class: 'form-label' %>
+            <%= select_tag :delivery_options, options_for_select(['included in amount', 'unavailable']), class: 'form-select', required: true %>
+          </div>
+
+          <div class="col-sm-6 mb-2">
+            <%= f.label "Product images", class: 'form-label' %>
+            <%= f.file_field :images, accept: 'image/*', multiple: true, class: 'form-control', required: true %>
+          </div>
+
+          <div class="text-center ">
+            <%= f.submit "Place bid", class: "col-sm-5 btn btn-primary btn-md" %>
+          </div>
+
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

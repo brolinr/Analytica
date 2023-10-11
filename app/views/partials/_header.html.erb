@@ -1,11 +1,12 @@
-<header class=" d-flex flex-wrap justify-content-center py-3 border-bottom container">
+<% if current_company.nil? %>
+  <header class=" d-flex flex-wrap justify-content-center py-3 border-bottom container mb-3">
   <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
     <span class="fs-2 text-primary">Analytica</span>
   </a>
 
   <ul class="nav nav-pills">
-    <li class="nav-item"><a href="#" class="nav-link">Find jobs</a></li>
-    <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+    <li class="nav-item"><%= link_to 'Our partners', contact_path, class: "nav-link" %></li>
+    <li class="nav-item"><%= link_to 'Blog', about_path, class: "nav-link" %></li>
     <li class="nav-item"><%= link_to 'Contact us', contact_path, class: "nav-link" %></li>
     <li class="nav-item"><%= link_to 'About us', about_path, class: "nav-link" %></li>
 
@@ -16,3 +17,41 @@
     <%= link_to 'Sign up', new_company_registration_url, class: 'btn btn-primary' %>
   </div>
 </header>
+<% else %>
+  <header class=" d-flex flex-wrap justify-content-center py-3 border-bottom container mb-3">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <span class="fs-2 text-primary">Analytica</span>
+    </a>
+
+    <ul class="nav nav-pills">
+      <li class="nav-item"><%= link_to 'Live Auctions', auctions_path, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to 'Collected Lots', collections_path, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to 'Auctions registered', '#', class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to 'My bids', about_path, class: "nav-link" %></li>
+
+    </ul>
+
+    <div class="text-end pb-2 d-flex justify-content-between">
+      <a href="#" class="d-flex justify-content-center align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+        <svg class="bd-placeholder-img rounded me-1" width="25" height="25">
+          <rect width="100%" height="100%" fill="#007aff"></rect>
+          <!-- Create a text element for the initial letter -->
+          <text x="50%" y="50%" fill="white" dy=".3em" font-weight="bold" font-size="18" text-anchor="middle">
+            <%= current_company.name[0] %>
+          </text>
+        </svg>
+        <strong>Your Acount</strong>
+      </a>
+      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+        <li><%= link_to 'Profile', edit_company_registration_path(current_company), class: 'dropdown-item' %></li>
+        <li><%= link_to 'Settings', edit_company_registration_path(current_company), class: 'dropdown-item' %></li>
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+          <%= link_to "Sign out", destroy_company_session_path, class: 'dropdown-item',
+                      data: { "turbo-method": :delete } %>
+        </li>
+      </ul>
+    </div>
+  </header>
+<% end %>

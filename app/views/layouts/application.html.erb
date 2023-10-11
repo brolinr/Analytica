@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="description" content="Analytica - Your Source for Tenders and RFQs. Find the latest logistics jobs and insightful blog posts.">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "count_down", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "image_preview", "data-turbo-track": "reload", defer: true %>
     <%= render 'partials/icons' %>
   </head>
 

@@ -13,6 +13,6 @@ class ApplicationController < ActionController::Base
   def allowed_params
     %i[email name phone address location
        certificate_of_incorporation tax_clearance
-       cr5 cr6 terms_and_conditions password password_confirmation]
+       cr5 cr6 terms_and_conditions password password_confirmation current_password]
   end
 end
