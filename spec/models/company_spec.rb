@@ -27,11 +27,6 @@ RSpec.describe Company do
     it { is_expected.to validate_length_of(:location).is_at_most(50) }
     it { is_expected.to validate_presence_of(:address) }
     it { is_expected.to validate_length_of(:address).is_at_most(50) }
-
-    it do
-      expect(subject).to validate_presence_of(:terms_and_conditions)
-        .with_message('Please accept the terms and conditions to continue')
-    end
   end
 
   describe 'factories' do

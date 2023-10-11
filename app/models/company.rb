@@ -15,6 +15,7 @@ class Company < ApplicationRecord
   has_many :bids, dependent: :destroy
   has_many :lots, dependent: :destroy
   has_many :watched_lots, dependent: :destroy
+  has_many :collected_lots, through: :watched_lots, source: :lot
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :about, length: { maximum: 300 }
@@ -22,27 +23,41 @@ class Company < ApplicationRecord
                     uniqueness: true
   validates :location, presence: true, length: { maximum: 50 }
   validates :address, presence: true, length: { maximum: 50 }
-  # rubocop:disable Rails/I18nLocaleTexts
-  validates :terms_and_conditions, presence: { message: 'Please accept the terms and conditions to continue' }
-  validates :certificate_of_incorporation, presence:
-                                           { message: 'Submit your certificate of incorporation to continue' },
-                                           content_type: { in: 'application/pdf', message: 'must be in PDF format' },
-                                           size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
-  validates :tax_clearance, presence:
-                            { message: 'Submit your tax clearence certificate to continue' },
-                            content_type: { in: 'application/pdf', message: 'must be in PDF format' },
-                            size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
-  validates :cr5, presence:
-            { message: 'Submit your CR5 certificate to continue' },
-                  content_type: { in: 'application/pdf', message: 'must be in PDF format' },
-                  size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
-  validates :cr6, presence:
-            { message: 'Submit your CR6 certificate to continue' },
-                  content_type: { in: 'application/pdf', message: 'must be in PDF format' },
-                  size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
-  validates :logo, presence: false,
-                   content_type: { in: %w[image/jpeg image/png], message: 'must be a valid image format' },
-                   size: { less_than: 5.megabytes, message: 'should be less than 5MB' }
+  validates :terms_and_conditions, presence: {
+    message: I18n.t('activerecord.errors.models.company.errors.terms_and_conditions.presence')
+  }
+  validates :certificate_of_incorporation,
+            presence: {
+              message: I18n.t('activerecord.errors.models.company.errors.certificate_of_incorporation.presence')
+            },
+            content_type: {
+              in: 'application/pdf', message: I18n.t('activerecord.errors.models.company.errors.pdf_format')
+            },
+            size: {
+              less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb')
+            }
 
-  # rubocop:enable Rails/I18nLocaleTexts
+  validates :tax_clearance,
+            presence: { message: I18n.t('activerecord.errors.models.company.errors.tax_clearance.presence') },
+            content_type: { in: 'application/pdf',
+                            message: I18n.t('activerecord.errors.models.company.errors.pdf_format') },
+            size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
+
+  validates :cr5,
+            presence: { message: I18n.t('activerecord.errors.models.company.errors.cr5.presence') },
+            content_type: { in: 'application/pdf',
+                            message: I18n.t('activerecord.errors.models.company.errors.pdf_format') },
+            size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
+
+  validates :cr6,
+            presence: { message: I18n.t('activerecord.errors.models.company.errors.cr6.presence') },
+            content_type: { in: 'application/pdf',
+                            message: I18n.t('activerecord.errors.models.company.errors.pdf_format') },
+            size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
+
+  validates :logo,
+            presence: false,
+            content_type: { in: %w[image/jpeg image/png],
+                            message: I18n.t('activerecord.errors.models.company.errors.image_format') },
+            size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
 end

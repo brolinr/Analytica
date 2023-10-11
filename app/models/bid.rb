@@ -1,59 +1,71 @@
 # frozen_string_literal: true
 
 class Bid < ApplicationRecord
+  before_validation
   has_many_attached :images
+
   belongs_to :lot
   belongs_to :company
 
-  validates :amount, presence: { message: 'Please enter the amount for the bid' }
-  validate :validate_company
-  validate :validate_bidding_price
-  validate :validate_image_count
-  validate :validate_image_size
+  validates :amount, presence: { message: I18n.t('activerecord.errors.models.bid.errors.amount_present') }
+
+  validate :amount_bid
+  validate :registration
+  validate :locations
+  validate :subscription
+  validate :number_of_images
+  validate :size_of_image
 
   private
 
-  def validate_bidding_price
+  def amount_bid
     if lot.present?
       lot.with_lock do
         lot.reload
+
         if lot.bids.empty? && amount > lot.asking_price
-          errors.add(:base,
-                     "Your bid must be equal to or lower than the asking price. The asking price is $#{lot.asking_price}")
+          errors.add(:base, I18n.t('activerecord.errors.models.bid.errors.initial_bid_amount'))
         end
 
         if lot.bids.any? && (amount >= lot.bids.last.amount)
-          errors.add(:base,
-                     "Your bid must be lower than the previous bids. The current bid is $#{lot.bids.last.amount}")
+          errors.add(:base, I18n.t('activerecord.errors.models.bid.errors.second_to_more_bids'))
         end
       end
     end
   end
 
-  def validate_company
-    registration = AuctionRegistration.find_by(company_id: company_id, auction_id: lot.auction.id) if lot.present?
-    unless registration
-      errors.add(:base, 'You cannot bid in this auction. Your company is not registered for participation.')
-    end
+  def registration
+    return if company_id.blank? || lot.blank?
 
-    if company.present? && company.location != lot.auction.location
-      errors.add(:base, "You can't participate in an auction that is not in your region.")
-    end
+    auction_reg = AuctionRegistration.find_by(company_id: company_id, auction_id: lot.auction.id)
+    errors.add(:base, I18n.t('activerecord.errors.models.bid.errors.not_registered')) if auction_reg.blank?
+  end
 
-    if company.present? && !company.seller?
-      errors.add(:base, 'Only sellers can bid for this lot. Upgrade your subscription')
+  def locations
+    return if company.blank? || lot.blank?
+
+    if company.location != lot.auction.location
+      errors.add(:base, I18n.t('activerecord.errors.models.bid.errors.outside_region'))
     end
   end
 
-  def validate_image_count
-    errors.add(:base, 'You can only add up to four images') if images.length > 4
+  def subscription
+    return if company.blank?
+
+    errors.add(:base, I18n.t('activerecord.errors.models.bid.errors.only_seller')) unless company.seller?
   end
 
-  def validate_image_size
+  def number_of_images
+    errors.add(:base, I18n.t('activerecord.errors.models.bid.errors.image_limit')) if images.length > 4
+  end
+
+  def size_of_image
+    return if images.blank?
+
     images.each do |image|
       if image.blob.byte_size > 5.megabytes
         image.purge
-        errors.add(:images, "can't be larger than 5MB")
+        errors.add(:images, I18n.t('activerecord.errors.models.bid.errors.image_size'))
       end
     end
   end

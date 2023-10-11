@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Auction < ApplicationRecord
+  before_create :set_location
+
   has_one_attached :image
   has_rich_text :description
 
@@ -30,19 +32,20 @@ class Auction < ApplicationRecord
   private
 
   def validate_dates
-    if start.present? && deadline.present? && (start >= deadline)
-      errors.add(:base, 'The deadline should be a date later than the start date')
-    end
+    return if start.blank? || deadline.blank?
+
+    errors.add(:base, I18n.t('activerecord.errors.models.auction.errors.deadline_later')) if start >= deadline
   end
 
   def validate_company
-    if company.present? && !company.buyer?
-      errors.add(:base,
-                 'Only buyers can create auctions. Upgrade your subscription')
-    end
-    if location.present? && company.location != location
-      errors.add(:base,
-                 "You can't create an auction outside your region.")
-    end
+    return if company.blank?
+
+    errors.add(:base, I18n.t('activerecord.errors.models.auction.errors.upgrade_subscription')) unless company.buyer?
+  end
+
+  def set_location
+    return if company.blank?
+
+    self.location = company.location
   end
 end

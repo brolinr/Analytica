@@ -3,29 +3,67 @@ en:
   activerecord:
     errors:
       models:
-        company:
-          attributes:
-            terms_and_conditions:
-              blank: "Please accept the terms and conditions to continue"
-            certificate_of_incorporation:
-              blank: "Submit your certificate of incorporation to continue"
-              content_type: "must be in PDF format"
-              size: "should be less than 5MB"
-            tax_clearance:
-              blank: "Submit your tax clearance certificate to continue"
-              content_type: "must be in PDF format"
-              size: "should be less than 5MB"
-            cr5:
-              blank: "CR5 is required"
-              content_type: "must be in PDF format"
-              size: "should be less than 5MB"
-            cr6:
-              blank: "CR6 is required"
-              content_type: "must be in PDF format"
-              size: "should be less than 5MB"
-            logo:
-              content_type: "must be a valid image format"
-              size: "should be less than 5MB"
         auction:
           errors:
             deadline_later: The deadline should be a date later than the start date
+            upgrade_subscription: Only buyers can create auctions. Upgrade your subscription
+        auction_registration:
+          errors:
+            already_registered: You are already registered
+            deadline_passed: The deadline for the auction has already passed. You cannot be registered
+            only_sellers: Only suppliers/sellers can subscribe to auctions. Upgrade your subscription
+            outside_region: You can't register to an auction that is not in your region.
+        bid:
+          errors:
+            amount_present: Please enter the amount for the bid
+            initial_bid_amount: "Your bid must be equal to or lower than the asking price. The asking price is $#{lot.asking_price}"
+            second_to_more_bids: "Your bid must be lower than the previous bids. The current bid is $#{lot.bids.last.amount}"
+            not_registered: You cannot bid in this auction. Your company is not registered for participation.
+            outside_region: You can't participate in an auction that is not in your region.
+            only_seller: Only sellers can bid for this lot. Upgrade your subscription
+            image_limit: You can only add up to four images
+            image_size: can't be larger than 5MB
+        company:
+          errors:
+            pdf_format: must be in PDF format
+            image_format: must be a valid image format
+            less_than_5mb: should be less than 5MB
+            terms_and_conditions:
+              presence: Please accept the terms and conditions to continue
+            certificate_of_incorporation:
+              presence: Submit your certificate of incorporation to continue
+            tax_clearance:
+              presence: Submit your tax clearance certificate to continue
+            cr5:
+              presence: CR5 is required
+            cr6:
+              presence: Submit your CR6 certificate to continue
+        lot:
+          errors:
+            different_location: You the location of the lot cannot be different to the location of the auction
+            only_buyers: Only buyers can create lots. Upgrade your subscription
+            deadline_passed: You cannot add a lot to this auction. The deadline for the auction has already passed.
+        watched_lot:
+          errors:
+            lot_watched: You have already added this lot to your collection
+            deadline_passed: The deadline for the auction has already passed. You cannot watch the lot
+  controllers:
+    something_wrong: An error occurred. Please try again!
+    lots:
+      collect:
+        collection: Lot Collected
+        removal: Lot removed from collection!
+      destroy:
+        success: The lot has been successfully deleted.
+      create:
+        success: Your lot has been successfully created!
+        failure: Something went wrong while creating your lot. Try again
+    bids:
+      create_success: Congratulations your has been submitted.
+      destroy_success: Your bid has been retracted.
+    auctions:
+      create_success: Congratulations on creating your auction. You can now add lots to it.
+      update_success: Your auction has been successfully updated.
+      delete_success: The auction has been successfully deleted.
+      register_success: Your registration has been approved. You can start bidding.
+      unauthorized: You were not authorized to view that location!
