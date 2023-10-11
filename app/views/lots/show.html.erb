@@ -101,7 +101,7 @@
           <% end %>
         </div>
       </div>
-    <% elsif @lot.has_lost_lot(current_company) %>
+    <% elsif @lot.lost_lot?(current_company) %>
       <h1 class="mb-3 text-center">You lost this lot!</h1>
       <p class="text-center">The current bid for this lot is now $ <%= @lot.asking_price %></p>
       <p class="text-center">

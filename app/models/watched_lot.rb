@@ -5,13 +5,18 @@ class WatchedLot < ApplicationRecord
   belongs_to :company
 
   validate :validate_auction_expiration
-  validates :lot_id, uniqueness: { scope: :company_id, message: 'You have already added this lot to your collection' }
+  # rubocop:disable Rails/UniqueValidationWithoutIndex
+  validates :lot_id, uniqueness: {
+    scope: :company_id,
+    message: I18n.t('activerecord.errors.models.watched_lot.errors.lot_watched')
+  }
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
 
   private
 
   def validate_auction_expiration
-    if lot.present? && lot.auction.expired
-      errors.add(:base, 'The deadline for the auction has already passed. You cannot watch the lot')
-    end
+    return if lot.blank?
+
+    errors.add(:base, I18n.t('activerecord.errors.models.watched_lot.errors.deadline_passed')) if lot.auction.expired
   end
 end

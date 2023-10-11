@@ -3,10 +3,15 @@
 class AuctionRegistration < ApplicationRecord
   belongs_to :company
   belongs_to :auction
-
-  validates :auction_id, uniqueness: { scope: :company_id, message: 'You are already registered' }
-  validate :validate_auction_expiration
-  validate :validate_company
+  # rubocop:disable Rails/UniqueValidationWithoutIndex
+  validates :auction_id, uniqueness: {
+    scope: :company_id,
+    message: I18n.t('activerecord.errors.models.auction_registration.errors.already_registered')
+  }
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
+  validate :auction_expiration
+  validate :company_subscription
+  validate :registration
 
   def approve_user
     transaction do
@@ -18,19 +23,29 @@ class AuctionRegistration < ApplicationRecord
 
   private
 
-  def validate_auction_expiration
+  def auction_expiration
+    return if auction.blank?
+
     if Time.current >= auction.deadline.to_time
-      errors.add(:base, 'The deadline for the auction has already passed. You cannot be registered')
+      errors.add(:base, I18n.t('activerecord.errors.models.auction_registration.errors.deadline_passed'))
     end
   end
 
-  def validate_company
-    if company.present? && !company.seller?
-      errors.add(:base, 'Only suppliers/sellers can subscribe to auctions. Upgrade your subscription')
+  def company_subscription
+    return if company.blank?
+
+    unless company.seller?
+      errors.add(:base,
+                 I18n.t('activerecord.errors.models.auction_registration.errors.only_sellers'))
     end
+  end
+
+  def registration
+    return if auction.blank? || company.blank?
 
     if company.location != auction.location
-      errors.add(:base, "You can't register to an auction that is not in your region.")
+      errors.add(:base,
+                 I18n.t('activerecord.errors.models.auction_registration.errors.outside_region'))
     end
   end
 end

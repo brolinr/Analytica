@@ -2,57 +2,50 @@
 
 class Lot < ApplicationRecord
   before_create :assign_lot_number, :set_location
+
+  has_rich_text :description
+
   belongs_to :company
   belongs_to :auction
-  has_rich_text :description
 
   has_many :bids, dependent: :destroy
   has_many :watched_lots, dependent: :nullify
 
   validates :title, presence: true
   validates :description, presence: true
-  validate :auction_has_expired
-  validate :validate_company
 
-  def collected?(current_company_id)
-    watched_lot = WatchedLot.find_by(lot_id: id, company_id: current_company_id)
+  validate :auction_expiry
+  validate :locations
+  validate :company_is_buyer?
 
-    watched_lot.present?
-  end
-
-  def collect(current_company_id)
-    watched_lots.create!(lot_id: id, company_id: current_company_id)
-  end
-
-  def remove_collection(current_company_id)
-    watched_lot = watched_lots.find_by!(lot_id: id, company_id: current_company_id)
-    watched_lot&.destroy
-  end
-
-  def current_bid
-    bids.last
-  end
-
-  def has_lost_lot(current_company)
-    bids.any? && bids.last.company != current_company && bids.pluck(:company_id).include?(current_company.id)
+  def collect(company_id)
+    watched_lots.create!(lot_id: id, company_id: company_id)
   end
 
   private
 
-  def auction_has_expired
-    if auction.present? && Time.current >= auction.deadline.to_time
-      errors.add(:base, 'You cannot add a lot to this auction. The deadline for the auction has already passed.')
+  def auction_expiry
+    return if auction.blank?
+
+    if Time.current >= auction.deadline.to_time
+      errors.add(:base, I18n.t('activerecord.errors.models.lot.errors.deadline_passed'))
     end
   end
 
-  def validate_location
-    if auction.present? && auction.location != location
-      errors.add(:base, 'You the location of the lot cannot be different to the location of the auction')
+  def locations
+    return if auction.blank?
+
+    if auction.location != location
+      byebug
+      errors.add(:base,
+                 I18n.t('activerecord.errors.models.lot.errors.different_location'))
     end
   end
 
-  def validate_company
-    errors.add(:base, 'Only buyers can create lots. Upgrade your subscription') if company.present? && !company.buyer?
+  def company_is_buyer?
+    return if company.blank?
+
+    errors.add(:base, I18n.t('activerecord.errors.models.lot.errors.only_buyers')) unless company.buyer?
   end
 
   def assign_lot_number

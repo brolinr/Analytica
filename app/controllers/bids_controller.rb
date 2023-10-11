@@ -7,12 +7,12 @@ class BidsController < ApplicationController
   end
 
   def create
-    @bid = current_company.bids.new(bid_params)
+    @bid = current_company.bids.new(permitted_params)
     @bid.lot = lot
     @bid.location = auction.location
 
     if @bid.save
-      flash[:success] = 'Bid submitted!'
+      flash[:success] = I18n.t('controllers.bids.create_success')
       redirect_to auction_lot_path(auction, lot)
     else
       render 'new', status: :unprocessable_entity
@@ -20,7 +20,7 @@ class BidsController < ApplicationController
   end
 
   def destroy
-    flash[:notice] = 'Bid retracted!' if bid.destroy
+    flash[:notice] = I18n.t('controllers.bids.destroy_success') if bid.destroy
     redirect_to request.referer unless request.referer.nil?
   end
 
@@ -38,7 +38,7 @@ class BidsController < ApplicationController
     @lot = Lot.find(params[:lot_id])
   end
 
-  def bid_params
+  def permitted_params
     params.require(:bid).permit(:amount, :delivery_options, images: [])
   end
 end
