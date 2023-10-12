@@ -6,7 +6,7 @@ Lot.destroy_all
 Bid.destroy_all
 WatchedLot.destroy_all
 
-buyer_company = Company.create!(
+buyer_company = Company.create(
   email: 'buyer@example.com',
   password: 'password',
   name: 'Buyer Company',
