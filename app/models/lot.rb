@@ -36,7 +36,6 @@ class Lot < ApplicationRecord
     return if auction.blank?
 
     if auction.location != location
-      byebug
       errors.add(:base,
                  I18n.t('activerecord.errors.models.lot.errors.different_location'))
     end

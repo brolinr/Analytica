@@ -53,4 +53,4 @@ group :test do
   gem 'webdrivers',                         '~> 5.2.0'
 end
 
-gem "dalli", "~> 3.2"
+gem 'dalli', '~> 3.2'
