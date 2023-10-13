@@ -28,11 +28,11 @@ The Reverse Auction module is a stand-alone system, accessible to users with acc
 - Users can save lots they wish to bid for.
 - Live and expired auctions are separated.
 
-### Request for Quotations (RFQ) Board
+### Request for Quotations (RFQ) Board [In progress]
 
 The RFQ Board showcases requests for quotations by individuals and companies. These requests are added by the super admin, and every request must be listed by Analytica from an admin perspective.
 
-### Tender Board
+### Tender Board [In progress]
 
 The Tender Board displays tenders listed by Analytica, and they become unlisted as soon as the tender period expires. These tenders are listed by Analytica from an admin perspective.
 
