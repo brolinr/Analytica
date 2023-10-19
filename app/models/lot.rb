@@ -22,6 +22,19 @@ class Lot < ApplicationRecord
     watched_lots.create!(lot_id: id, company_id: company_id)
   end
 
+  def lost_lot?(company)
+    bids.any? && bids.last.company != company && bids.pluck(:company_id).include?(company.id)
+  end
+
+  def collected?(company_id)
+    watched_lot = WatchedLot.find_by(lot_id: id, company_id: company_id)
+    watched_lot.present?
+  end
+
+  def current_bid
+    bids.last
+  end
+
   private
 
   def auction_expiry
@@ -36,7 +49,6 @@ class Lot < ApplicationRecord
     return if auction.blank?
 
     if auction.location != location
-      byebug
       errors.add(:base,
                  I18n.t('activerecord.errors.models.lot.errors.different_location'))
     end

@@ -67,3 +67,24 @@ en:
       delete_success: The auction has been successfully deleted.
       register_success: Your registration has been approved. You can start bidding.
       unauthorized: You were not authorized to view that location!
+  views:
+    static_pages:
+      home:
+        entry_hero_title: Explore the World of Procurement
+        entry_hero_desc: Unlock opportunities, streamline processes, and discover the power of efficient
+          procurement with Analytica. Dive into a world of tenders, RFQs, and auctions, and
+          transform your procurement experience today.
+        feature_one_title: Reverse Auction
+        feature_one_desc: '<strong class="fw-bold">Discover the potential of reverse auctions in procurement:</strong>
+          Our platform unveils a powerful strategy to maximize savings and efficiency through innovative 
+          bidding methods. Elevate your procurement process with our solution.'
+        feature_two_title: Request for Quotations (RFQ)
+        feature_two_desc: '<strong class="fw-bold">Enhance procurement efficiency with our RFQ platform:</strong> 
+          Seamlessly request quotes, compare supplier offers, negotiate terms, and drive cost savings.
+          Elevate your sourcing strategy with our RFQ solution. </p>'
+        feature_three_title: Logistics
+        feature_three_desc: '<strong class="fw-bold">Explore opportunities on our Logistics Jobs Board:</strong>
+          Find the latest logistics roles, connect with employers, and advance your career in the
+          logistics industry. Your gateway to logistics job success awaits!'
+        feature_four_title:
+        feature_four_desc:
