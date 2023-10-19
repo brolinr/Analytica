@@ -48,7 +48,7 @@ jobs:
       RAILS_ENV: test
       GEMFILE_RUBY_VERSION: 3.1.0
       PGHOST: localhost
-      PGUSER: postgres
+      DB_USERNAME: postgres
       BASE_URL: 'localhost'
       DELIVERY_SUPPORT_EMAIL: 'test@example.com'
     steps:

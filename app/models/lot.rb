@@ -21,7 +21,7 @@ class Lot < ApplicationRecord
   def collect(company_id)
     watched_lots.create!(lot_id: id, company_id: company_id)
   end
-  
+
   def lost_lot?(company)
     bids.any? && bids.last.company != company && bids.pluck(:company_id).include?(company.id)
   end
