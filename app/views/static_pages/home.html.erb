@@ -1,100 +1,172 @@
-<div class="text-center jumbotron">
-  <div class="layer">
-    <div class="container my-0">
-      <header class="d-flex flex-wrap justify-content-center py-3">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-          <span class="fs-4 text-light">Analytica</span>
-        </a>
+<div class="bg-dark">
+  <div class="container my-0">
+    <header class="d-flex flex-wrap justify-content-center py-3">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span class="fs-4 text-light">Analytica</span>
+      </a>
 
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link text-light">Find Tenders</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-light">RFQs</a></li>
-          <li class="nav-item"><%= link_to 'Contact us', contact_path, class: "nav-link text-light" %></li>
-          <li class="nav-item"><%= link_to 'About us', about_path, class: "nav-link text-light" %></li>
-        </ul>
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link text-light">Find Tenders</a></li>
+        <li class="nav-item"><a href="#" class="nav-link text-light">RFQs</a></li>
+        <li class="nav-item"><%= link_to 'Contact us', contact_path, class: "nav-link text-light" %></li>
+        <li class="nav-item"><%= link_to 'About us', about_path, class: "nav-link text-light" %></li>
+      </ul>
 
-        <div class="text-end">
-          <%= link_to 'Login', new_company_session_path, class: 'btn btn-outline-light me-2' %>
-          <%= link_to 'Sign up', new_company_registration_url, class: 'btn btn-light' %>
+      <div class="text-end">
+        <%= link_to 'Login', new_company_session_path, class: 'btn btn-outline-light me-2' %>
+        <%= link_to 'Sign up', new_company_registration_url, class: 'btn btn-light' %>
+      </div>
+    </header>
+  </div>
+</div>
+
+<div class="bg-dark text-secondary px-4 py-5 mb-3 text-center">
+  <div class="py-5">
+    <h1 class="display-5 fw-bold text-white">
+      <%= t('views.static_pages.home.entry_hero_title') %>
+    </h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="fs-5 mb-4">
+        <%= t('views.static_pages.home.entry_hero_desc') %>
+      </p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <%= link_to 'Create Account', new_company_registration_path,
+                    class: 'btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold'
+        %>
+
+        <%= link_to 'Log in', new_company_session_path,
+                    class: 'btn btn-outline-light btn-lg px-4'
+        %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" id="features">
+  <h1 class="m-5 display-4 text-center text-dark">
+    <span class="font-weight-bold border-bottom border-5 rounded border-info">Discover Our Features</span>
+  </h1>
+
+  <div class="col-xxl-8 px-4" id="feature_one">
+    <div class="row flex-lg-row align-items-center g-5 py-2">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <%= image_tag 'istockphoto-1138748691-612x612.jpg', class: 'd-block mx-lg-auto img-fluid', alt: '', width: 700, height: 500, loading: 'lazy'%>
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">
+          <%= t('views.static_pages.home.feature_one_title') %>
+        </h1>
+        <p class="lead">
+          <%= t('views.static_pages.home.feature_one_desc').html_safe %>
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <%= link_to 'Sign up to explore', new_company_registration_path,
+                      class: 'btn btn-primary btn-lg px-4 me-md-2'
+          %>
         </div>
-      </header>
+      </div>
     </div>
   </div>
-
-  <div class="col-xxl-10 layer px-4 py-5 text-light">
-    <h1 class="display-4 fw-bold mb-3">Explore the World of Procurement</h1>
-    <div class="col-lg-6 mx-auto my-sm-3">
-      <p class="lead mb-lg-5">
-        Unlock opportunities, streamline processes, and discover the power of efficient
-        procurement with Analytica. Dive into a world of tenders, RFQs, and auctions, and
-        transform your procurement experience today.
-      </p>
-    </div>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-      <button type="button" class="btn btn-primary btn-lg px-4 gap-3">RFQ Board</button>
-      <button type="button" class="btn btn-outline-light btn-lg px-4">Tenders Board</button>
+  <div class="col-xxl-8 px-4" id="feature_two">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-2">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <%= image_tag 'rfq.jpg', class: 'd-block mx-lg-auto img-fluid', alt: '', width: 700, height: 500, loading: 'lazy'%>
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">
+          <%= t('views.static_pages.home.feature_two_title') %>
+        </h1>
+        <p class="lead">
+          <%= t('views.static_pages.home.feature_two_desc').html_safe %>
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" class="text-white btn btn-info btn-lg px-4">Coming soon</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="bg-secondary-subtle px-4 pb-5 pt-3 mb-5">
-  <h1 class="display-4 text-center fw-semibold my-3 text-dark-emphasis">Discover Our Features</h1>
-  <div class="row g-4 py-4 row-cols-1 row-cols-lg-3">
-    <div class="feature col">
-      <div class="feature-icon bg-primary bg-gradient">
-        <i class="bi-arrow-repeat"></i>
+  <div class="col-xxl-8 px-4 pb-1" id="feature_three">
+    <div class="row flex-lg-rowy align-items-center g-5 pt-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <%= image_tag 'logistics.jpg', class: 'd-block mx-lg-auto img-fluid', alt: 'Logistsics image', width: 700, height: 500, loading: 'lazy'%>
       </div>
-      <h2 class="text-primary">Reverse Auction</h2>
-      <p class="text-light-emphasis">
-        <strong>Discover the potential of reverse auctions in procurement:</strong>
-        Our platform unveils a powerful strategy to maximize savings and
-        efficiency through innovative bidding methods. Elevate your procurement
-        process with our solution.
-      </p>
-      <%= link_to new_company_registration_path, class: 'icon-link d-flex' do %>
-        <span>
-          Sign up to explore
-          <i class="ms-1 bi-chevron-right"></i>
-        </span>
-      <% end %>
-    </div>
-    <div class="feature col">
-      <div class="feature-icon bg-primary bg-gradient">
-        <i class="bi-file-text"></i>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">
+          <%= t('views.static_pages.home.feature_three_title') %>
+        </h1>
+        <p class="lead">
+          <%= t('views.static_pages.home.feature_three_desc').html_safe %>
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" class="text-white btn btn-info btn-lg px-4">Coming soon</button>
+        </div>
       </div>
-      <h2 class="text-primary">Request for Quotations (RFQ)</h2>
-      <p class="text-light-emphasis">
-        <strong>Enhance procurement efficiency with our RFQ platform:</strong> Seamlessly request quotes,
-        compare supplier offers, negotiate terms, and drive cost savings. Elevate your sourcing
-        strategy with our RFQ solution.
-      </p>
-      <%= link_to new_company_registration_path, class: 'icon-link d-flex' do %>
-        <span>
-          Visit the board
-          <i class="ms-1 bi-chevron-right"></i>
-        </span>
-      <% end %>
-    </div>
-    <div class="feature col">
-      <div class="feature-icon bg-primary bg-gradient">
-        <i class="bi-toggles2"></i>
-      </div>
-      <h2 class="text-primary">Logistics</h2>
-      <p class="text-light-emphasis">
-        <strong>Explore opportunities on our Logistics Jobs Board:</strong>
-        Find the latest logistics roles,
-        connect with employers, and advance your career in the logistics industry. Your
-        gateway to logistics job success awaits!
-      </p>
-      <%= link_to new_company_registration_path, class: 'icon-link d-flex' do %>
-        <span>
-          Visit the board
-          <i class="ms-1 bi-chevron-right"></i>
-        </span>
-      <% end %>
     </div>
   </div>
 </div>
+
+<section id="sponsors" class="bg-light py-5">
+  <div class="container">
+    <h2 class="display-4 text-center">Our Sponsors</h2>
+    <div class="row justify-content-center mt-4">
+      <!-- Sponsor 1 -->
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="sponsor-card">
+          <span class="bi-heart"></span> <!-- Example of a Bootstrap -->
+        </div>
+      </div>
+
+      <!-- Sponsor 2 -->
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="sponsor-card">
+          <span class="bi-truck"></span> <!-- Example of another Bootstrap -->
+        </div>
+      </div>
+
+      <!-- Sponsor 3 -->
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="sponsor-card">
+          <span class="bi-truck"></span> <!-- Example of another Bootstrap -->
+        </div>
+      </div>
+
+      <!-- Sponsor 4 -->
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="sponsor-card">
+          <span class="bi-truck"></span> <!-- Example of another Bootstrap -->
+        </div>
+      </div>
+
+      <!-- Sponsor 5 -->
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="sponsor-card">
+          <span class="bi-truck"></span> <!-- Example of another Bootstrap -->
+        </div>
+      </div>
+
+      <!-- Sponsor 6 -->
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="sponsor-card">
+          <span class="bi-truck"></span> <!-- Example of another Bootstrap -->
+        </div>
+      </div>
+
+      <!-- Sponsor 7 -->
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="sponsor-card">
+        <span class="bi-truck"></span> <!-- Example of another Bootstrap -->
+      </div>
+    </div>
+
+    <!-- Sponsor 8 -->
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="sponsor-card">
+        <span class="bi-truck"></span> <!-- Example of another Bootstrap -->
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
 
 <div class="container bg-white">
   <h2 class="m-5 text-center display-4">Logistics jobs</h2>

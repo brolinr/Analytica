@@ -61,7 +61,7 @@ jobs:
       - name: Install libvips
         run: sudo apt-get update && sudo apt-get install -y libvips
       - name: Build JS
-        run: npm install && npm run build:all
+        run: npm install --legacy-peer-deps && npm run build:css
       - name: Create DB
         run: |
           bin/rails db:create db:migrate

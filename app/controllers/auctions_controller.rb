@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AuctionsController < ApplicationController
+
   before_action :authenticate_company!
   before_action :permitted_params, only: %i[update create]
   before_action :auction, except: %i[create new index]

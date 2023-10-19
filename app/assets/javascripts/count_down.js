@@ -10,7 +10,7 @@ function updateCountdown(element, deadlineTimestamp) {
         var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
         element.innerHTML =
-            "Expires in: " + days + "d " + hours + "Hrs " + minutes + "Min " + seconds + "Sec";
+           days + "d " + hours + "Hrs " + minutes + "Min " + seconds + "Sec";
     } else {
         element.innerHTML = "Auction has ended";
     }
