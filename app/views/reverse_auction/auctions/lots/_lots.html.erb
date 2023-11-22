@@ -1,0 +1,33 @@
+<% lots = data[:lots] %>
+
+<% lots.each do |lot| %>
+  <div class="border border-secondary-subtle rounded pt-2 mb-2 shadow-sm">
+    <div class="border-bottom border-dark-subtle px-2">
+      <h4 class="h5 fw-bold ">
+        LOT #<%= lot.lot_number %>
+        <span class="float-end">
+                Asking price: $<%= lot.asking_price %>.00
+              </span>
+      </h4>
+    </div>
+    <div class="px-2">
+      <h2 class="row card-title mb-2">
+              <span class="col-sm-9 float-start">
+                <%= lot.title %>
+              </span>
+
+        <span class="col-sm-3 text-end">
+                <%= link_to "Delete", reverse_auction_auction_lot_path(@auction, lot), class: 'btn fw-bold btn-sm btn-danger', data: {turbo_method: :delete} %>
+              </span>
+      </h2>
+      <span class="">
+              <p class="text-secondary-emphasis my-0 fw-bold">
+                Quantity: <span class="fw-normal"><%= lot.quantity %></span>
+              </p>
+              <p class="fw-bold text-secondary-emphasis my-0">
+                Condition of items: <span class="fw-normal"><%= lot.condition %></span>
+              </p>
+            </span>
+    </div>
+  </div>
+<% end %>

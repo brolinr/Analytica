@@ -9,7 +9,7 @@ RSpec.describe Lot do
     it { is_expected.to belong_to(:company) }
     it { is_expected.to belong_to(:auction) }
     it { is_expected.to have_many(:bids).dependent(:destroy) }
-    it { is_expected.to have_many(:watched_lots).dependent(:nullify) }
+    it { is_expected.to have_many(:watched_lots).dependent(:destroy) }
     it { is_expected.to have_rich_text(:description) }
   end
 

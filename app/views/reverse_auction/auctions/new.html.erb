@@ -2,9 +2,11 @@
 <div class="container row justify-content-center g-5 px-5">
   <div class="col-8 col-lg-6">
     <h4 class="fw-semibold text-center">Create the auction</h4>
-    <%= form_with(model: @auction, remote: true, method: :post, data: { turbo: false }) do |f| %>
+    <%= form_with(url: reverse_auction_auctions_path,model: @auction, remote: true, method: :post, data: { turbo: false }) do |f| %>
+      <%= f.hidden_field :location, class: 'form-control', value: current_company.location, required: true %>
+
       <div class="row g-3 mt-4 text-dark">
-        <%= render 'partials/error_messages', object: f.object %>
+        <%= render 'shared/error_messages', object: f.object %>
 
         <div class="col-sm-12">
           <%= f.label 'Title', class: 'form-label' %>
@@ -16,27 +18,17 @@
           <%= f.rich_text_area :description, class: 'form-control', required: true %>
         </div>
 
-        <div class="col-sm-12">
-          <%= f.label 'Additional notes', class: 'form-label' %>
-          <%= f.text_area :notes, class: 'form-control' %>
-        </div>
-
         <div class="col-sm-6 mb-2">
-          <%= f.label "Auction start date", class: 'form-label' %>
+          <%= f.label "Auction start", class: 'form-label' %>
           <%= f.datetime_field :start, class: 'form-control', required: true %>
         </div>
 
         <div class="col-sm-6">
-          <%= f.label 'Auction deadline date', class: 'form-label' %>
+          <%= f.label 'Auction deadline', class: 'form-label' %>
           <%= f.datetime_field :deadline, class: 'form-control', required: true %>
         </div>
 
-        <div class="col-sm-6">
-          <%= f.label :location, class: 'form-label' %>
-          <%= f.text_field :location, class: 'form-control', value: current_company.location, required: true %>
-        </div>
-
-        <div class="col-6 mb-2">
+        <div class="col-sm-12 mb-2">
            <% if @auction.image.attached? %>
               <%= image_tag @auction.image %>
            <% end %>

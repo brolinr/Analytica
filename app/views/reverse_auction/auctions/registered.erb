@@ -1,0 +1,55 @@
+<div class="mb-5 bg-warning p-2 rounded text-white">
+  <h3 class="display-6 fw-bold">Auctions/Registered Auctions</h3>
+</div>
+
+<% @registered_auctions.each do |auction| %>
+  <div class="border-0 card mb-4 rounded bg-light-subtle">
+    <div class="row justify-content-center shadow-sm p-2 bg-light">
+      <div class="col-3 rounded p-1 me-3">
+        <% if auction.image.attached? %>
+          <%= image_tag auction.image, class: "rounded img-fluid", width: '100%' %>
+        <% else %>
+          <%= image_tag 'reverse-auction.jpg', class: "rounded img-fluid", width: '100%' %>
+        <% end %>
+      </div>
+      <div class="col-8 rounded pt-1 ps-3">
+        <div class="border-bottom border-info mb-2">
+          <span class="h4 fw-light text-info bi-alarm">
+            <span class="ms-1"> ENDS IN: </span>
+            <span class="fw-semibold">5d 6h 12m 6s</span>
+
+            <% if auction.registered?(current_company.id) %>
+              <span class="h5 fw-semibold float-end text-dark">
+                REGISTERED
+              </span>
+            <% else %>
+              <span class="h5 fw-semibold float-end text-dark-emphasis">
+                NOT REGISTERED
+              </span>
+            <% end %>
+          </span>
+        </div>
+
+        <h3 class="display-6 fw-semibold mb-2"><%= auction.title.capitalize %></h3>
+        <span class="text-decoration-none">
+          <%= link_to pluralize(auction.lots.count, 'Lot'), reverse_auction_auction_path(auction), class: 'btn fw-bold btn-sm btn-info text-white' %>
+        </span>
+
+        <div class="accordion my-4 mb-3 border-0">
+          <div class="accordion-item border-0">
+            <h4 class="accordion-header fw-bold h3" id="auction_description">
+              <button class="accordion-button p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<%= "auction_#{auction.id}" %>>" aria-expanded="false" aria-controls="<%= "auction_#{auction.id}" %>>">
+                <h4 class="m-0 fw-semibold">READ MORE</h4>
+              </button>
+            </h4>
+            <div id="<%= "auction_#{auction.id}" %>>" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <%= auction.description %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

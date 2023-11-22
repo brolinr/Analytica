@@ -62,6 +62,8 @@ en:
       create_success: Congratulations your has been submitted.
       destroy_success: Your bid has been retracted.
     auctions:
+      auction_not_found: Auction doesn't exist
+      company_not_buyer: Upgrade your subscription and become a buyer to perform the action.
       create_success: Congratulations on creating your auction. You can now add lots to it.
       update_success: Your auction has been successfully updated.
       delete_success: The auction has been successfully deleted.

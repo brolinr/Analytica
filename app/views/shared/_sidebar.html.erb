@@ -1,0 +1,82 @@
+<% avatar_url = "https://api.dicebear.com/7.x/initials/svg?seed=#{URI.encode_www_form_component(current_company.name)}&backgroundColor=00acc1,039be5,1e88e5,3949ab,d1d4f9&backgroundType=gradientLinear" %>
+
+<aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-4">Analytica </span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <%= link_to reverse_auction_root_path, class: 'nav-link text-white' do %>
+        <i class="bi-graph-up-arrow me-2"></i>
+        Dashboard
+      <% end %>
+    </li>
+    <% if current_company.seller? %>
+      <li>
+        <%= link_to reverse_auction_live_path, class: 'nav-link text-white' do %>
+          <i class="bi-alarm-fill me-2"></i>
+          Live auctions
+        <% end %>
+      </li>
+      <li>
+        <%= link_to reverse_auction_registered_path, class: 'nav-link text-white' do %>
+          <i class="bi-check-square-fill me-2"></i>
+          Registered auctions
+        <% end %>
+      </li>
+    <% end %>
+    <% if current_company.buyer? %>
+      <li>
+        <%= link_to reverse_auction_my_auctions_path, class: 'nav-link text-white' do %>
+          <i class="bi-journal-medical me-2"></i>
+          My auctions
+        <% end %>
+      </li>
+    <% end %>
+    <% if current_company.seller? %>
+      <li>
+        <%= link_to reverse_auction_lots_bid_path, class: 'nav-link text-white' do %>
+          <i class="bi-cash-coin me-2"></i>
+          Your bids
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to reverse_auction_wishlist_path, class: 'nav-link text-white' do %>
+          <i class="bi-grid-fill me-2"></i>
+          Wishlist
+        <% end %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to '#', class: 'nav-link text-white' do %>
+        <i class="bi-gear-fill me-2"></i>
+        Settings
+      <% end %>
+    </li>
+    <li>
+      <%= link_to '#', class: 'nav-link text-white' do %>
+        <i class="bi-coin me-2"></i>
+        Subscriptions
+      <% end %>
+    </li>
+  </ul>
+  <hr class="border border-info">
+  <div class="dropdown d-flex justify-content-center">
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none" id="account_options_drop_down" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="<%= avatar_url %>" alt="" width="50" height="50" class="rounded-circle me-2">
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="account_options_drop_down">
+      <li><a class="dropdown-item bi-cash-stack" href="#"> Subscriptions</a></li>
+      <li>
+        <%= link_to ' Account settings', edit_company_registration_path(current_company), class: 'dropdown-item bi-person-fill-gear' %>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <%= link_to " Sign out", destroy_company_session_path, class: 'dropdown-item bi-person-fill-exclamation',
+                    data: { "turbo-method": :delete } %>
+      </li>
+    </ul>
+  </div>
+</aside>

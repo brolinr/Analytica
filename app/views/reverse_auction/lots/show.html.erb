@@ -1,0 +1,188 @@
+<div class="container">
+  <nav>
+    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Lot</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Bids</button>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="tab-pane fade show active" id="lot" role="tabpanel" aria-labelledby="lot-tab">
+        <div class="row justify-content-center m-sm-5">
+          <div class="p-1 rounded-5 shadow px-5 col-sm-10">
+            <span class="small fw-semibold mb-1">LOT NUMBER: #<%= @lot&.lot_number %></span>
+            <h1 class="display-3">
+              <%= @lot&.title.capitalize %>
+              <%= link_to wish_reverse_auction_lot_path(@lot), data: {'turbo_method': :post} do %>
+                <% if @lot&.collected?(current_company.id) %>
+                  <i class="bi-bookmark-heart-fill text-info float-end"></i>
+                <% else %>
+                  <i class="bi-bookmark-heart text-info float-end"></i>
+                <% end %>
+              <% end %>
+            </h1>
+
+            <h4 class="h4">
+              <i class="bi-cash-stack"></i>
+              Asking price: $<%= currency_format @lot&.asking_price * 100 %>
+            </h4>
+
+            <% if @lot&.bids.any? %>
+              <h4 class="">
+                <i class="text-dark bi-coin"></i>
+                Current bid: $<%= currency_format @lot&.winning_bid&.amount * 100 %>
+              </h4>
+            <% end %>
+
+            <h4 class="h4">
+              <i class="bi-info-circle"></i> Condition:
+              <%= @lot&.condition&.capitalize %>
+            </h4>
+
+            <h4 class="h4">
+              <i class="bi-geo"></i> Location:
+              <%= @lot&.location %>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="row justify-content-center p-1 rounded-4 shadow">
+        <% unless @lot&.bids.present? %>
+          <h1 class="display-3 text-center mb-sm-3"> Be the first to bid! </h1>
+          <p class="fw-bold text-center">The starting bid for this lot is
+            <span class="h5 text-primary">$<%= @lot&.asking_price %>.00</span>
+          </p>
+          <p class="text-center">
+            <span class="btn btn-info px-4 fw-bold text-white" data-bs-toggle="modal"
+                  data-bs-target="#new-bid">Bid</span>
+          </p>
+        <% end %>
+
+        <% if lost_lot?(current_company, @lot) && !@lot.auction.expired? %>
+          <h1 class="display-3 text-center mb-sm-3">
+            You have been <span class="fw-bold"> outbid!</span>
+          </h1>
+          <p class="fw-bold text-center">The current bid for this lot now stands at
+            <span class="h5 text-primary">$<%= @lot&.bids.last.amount %>.00</span>
+          </p>
+          <p class="text-center">
+            <span class="btn btn-info px-4 fw-bold text-white" data-bs-toggle="modal"
+                  data-bs-target="#new-bid">New Bid</span>
+          </p>
+        <% end %>
+
+        <% if lost_lot?(current_company, @lot) && @lot&.auction.expired? %>
+          <h1 class="display-3 text-center mb-sm-3 text-warning fw-bold">
+            You lost
+          </h1>
+          <p class="fw-bold text-center">This auction has ended. Check other live auctions</p>
+        <% end %>
+
+        <% if won_lot?(@lot, current_company) %>
+          <h1 class="display-3 text-center mb-sm-2 text-info fw-bold">
+            Congratulations!! You won.
+          </h1>
+          <p class="fw-bold text-center text-info">
+            An email will be sent to you with details of delivery.
+          </p>
+        <% end %>
+
+        <% if @lot&.current_winner == current_company %>
+          <h1 class="display-3 text-center mb-sm-2 text-info">
+            You have the winning bid.
+          </h1>
+          <p class="fw-bold text-center text-info mb-sm-1">
+            Time remaining: 45d 21h 54s
+          </p>
+
+          <div class="row d-flex rounded-4 shadow my-sm-3">
+            <h1 class="display-6 text-center fw-semibold mb-sm-2">
+              Your bid
+            </h1>
+            <div class="col-sm-8 rounded-4 px-sm-4">
+              <span class="small mb-1">LOT: #<%= @lot&.lot_number %></span>
+
+              <h1 class="display-5">
+                <i class="text-dark bi-coin"></i>
+                Total amount: $<%= @lot&.bids&.last&.amount %>.00
+              </h1>
+
+              <h1 class="display-5">
+                <i class="text-dark bi-truck"></i>
+                Delivery: <%= @lot&.bids&.last&.delivery_options %>
+              </h1>
+
+              <h1 class="display-5">
+                <i class="text-dark bi-geo-fill"></i>
+                Location: <%= @lot&.bids&.last&.location %>
+              </h1>
+
+              <h1 class="display-5 d-flex">
+                <p class="h2 mt-1">
+                  <span class="rounded border badge bg-white text-dark text-center me-3">5</span>
+                </p>
+                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                  <i class="bi-archive me-1"></i>
+                  Items
+                </button>
+              </h1>
+            </div>
+            <div class="col-sm-4 d-flex row">
+              <% if @lot&.winning_bid&.images.attached? %>
+                <% @lot&.winning_bid&.images.each do |image| %>
+                  <%= image_tag image, class: 'col-md-6 img-fluid rounded-2 mb-sm-2', width: '400px', height: '400px' %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="new-bid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><%= "#{@lot.title.capitalize} bid" %></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="col-8 col-lg-6">
+            <h4 class="fw-semibold text-center">Make offer</h4>
+            <%= form_with(model: @bid, url: reverse_auction_lot_bids_path(@lot), method: :post, data: { turbo: false }) do |f| %>
+              <div class="row g-3 mt-4 text-dark">
+                <%= render 'shared/error_messages', object: f.object %>
+
+                <div class="col-sm-12">
+                  <%= f.label 'Total Amount ($)', class: 'form-label' %>
+                  <%= f.number_field :amount, class: 'form-control', required: true %>
+                </div>
+
+                <div class="col-sm-12">
+                  <%= f.label :delivery, class: 'form-label' %>
+                  <%= select_tag :delivery_options, options_for_select(['Included in amount', 'Unavailable']), class: 'form-select', required: true %>
+                </div>
+
+                <div class="col-sm-12 mb-2 ">
+                  <%= f.label "Add images", class: 'form-label' %>
+                  <%= f.file_field :images, accept: 'image/*', multiple: true, class: 'form-control', required: true %>
+                </div>
+
+                <div class="text-center ">
+                  <%= f.submit "Place bid", class: "text-white btn btn-info btn-md" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

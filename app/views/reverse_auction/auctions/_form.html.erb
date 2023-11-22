@@ -1,10 +1,12 @@
+<% auction = data[:auction] %>
+
 <div class="col-8 col-lg-6">
   <h4 class="fw-semibold text-center mb-4">
     Update auction
   </h4>
-  <%= form_with(model: @auction, remote: true, method: :patch, data: { turbo: false }) do |f| %>
+  <%= form_with(model: auction, url: reverse_auction_auction_path(auction), method: :put, data: { turbo: false }) do |f| %>
     <div class="row g-3 mt-4 text-dark">
-      <%= render 'partials/error_messages', object: f.object %>
+      <%= render 'shared/error_messages', object: f.object %>
 
       <div class="col-sm-12">
         <%= f.label 'Title', class: 'form-label' %>
@@ -13,29 +15,16 @@
 
       <div class="col-sm-12">
         <%= f.label :description, class: 'form-label' %>
-        <%= f.text_area :description, class: 'form-control', required: true %>
+        <%= f.rich_text_area :description, class: 'form-control', required: true %>
       </div>
 
-      <div class="col-sm-12">
-        <%= f.label 'Additional notes', class: 'form-label' %>
-        <%= f.text_area :notes, class: 'form-control' %>
-      </div>
-
-      <div class="col-sm-6">
-        <%= f.label :location, class: 'form-label' %>
-        <%= f.text_field :location, class: 'form-control', value: current_company.location, required: true %>
-      </div>
-
-      <div class="col-6 mb-2">
+      <div class="col-sm-12 mb-2">
         <%= f.label 'Banner image', class: 'form-label' %>
         <div class="image-preview">
           <% if @auction.image.attached? %>
-          <%= image_tag @auction.image, class: "bd-placeholder-img rounded-top img-fluid",
-                        width: '100%' %>
-
-        <% else %>
-          <%= f.label 'Add an image', class: 'form-label' %>
-        <% end %>
+            <%= image_tag @auction.image, class: "bd-placeholder-img rounded-top img-fluid",
+                          width: '100%' %>
+          <% end %>
         </div>
 
         <%= f.file_field :image, class: 'form-control rounded-bottom', id: 'image-input' %>
@@ -45,7 +34,7 @@
 
       <%= f.submit "Save Changes", class: "col-sm-5 btn btn-primary btn-md" %>
 
-      <span class="btn-group my-3">
+      <span class="btn-group">
       <button type="button" class="my-5 btn btn-sm btn-warning float-end" data-bs-toggle="modal"
               data-bs-target="#exampleModal">Delete auction</button>
       <button type="button" class="my-5 btn btn-sm btn-primary float-end" data-bs-toggle="modal"
@@ -69,7 +58,7 @@
         and the bids placed. The biders will be notified of this action
       </div>
       <div class="modal-footer">
-        <%= link_to "Delete", @auction, method: :delete, data: { "turbo": :false },
+        <%= link_to "Delete", '', method: :delete, data: { "turbo": :false },
                     class: "text-light rounded p-2 bg-danger text-decoration-none" %>
 
       </div>
@@ -85,13 +74,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Extend auction deadline!</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <%= form_with(url: extend_deadline_auction_url(@auction), model: @auction, method: :post, data: { turbo: true }) do |f| %>
-          <%= f.label 'Days (Max: 5 days)', class: 'form-label' %>
-          <%= f.number_field :extended_days, class: 'form-control my-2', max: 5 %>
-          <%= f.submit 'Extend', class: "text-light rounded p-2 bg-danger text-decoration-none"%>
-        <% end %>
-      </div>
+
     </div>
   </div>
 </div>

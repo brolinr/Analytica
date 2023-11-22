@@ -3,18 +3,29 @@ Rails.application.routes.draw do
   get 'about', to: 'static_pages#about'
   get 'contact', to: 'static_pages#contact'
 
-  devise_for :companies
+  devise_for :companies, controllers: {
+    sessions: 'companies/sessions',
+    registrations: 'companies/registrations',
+    passwords: 'companies/passwords',
+    confirmations: 'companies/confirmations'
+  }
 
-  resources :auctions do
-    get '/registered_auctions', on: :member, to: 'auctions#auctions_registered', as: :auctions_registered
-    post '/extend_deadline/', on: :member, to: 'auctions#extend_deadline', as: :extend_deadline
-    post '/register/', on: :member, to: 'auctions#register', as: :register_company
-    resources :lots, only: %i[create update show destroy] do
-      post '/collect/', on: :member, to: 'lots#collect', as: :collect
-      resources :bids, only: %i[new create destroy]
+  namespace :reverse_auction do
+    root to: 'dashboard#index'
+    resources :auctions, except: :index do
+      post '/register/', on: :member, to: 'auctions#register', as: :register
+      resources :lots, only: %i[create update show destroy]
     end
-  end
 
-  get 'company_profile', to: 'auctions#company_profile', as: :company_profile
-  get 'lots/collections', to: 'lots#collections', as: :collections
+    resources :lots, only: [] do
+      post '/wish/', on: :member, to: 'lots#wish', as: :wish
+      resources :bids, only: %i[new create destroy], shallow: true
+    end
+
+    get 'wishlist', to: 'lots#wishlist', as: :wishlist
+    get '/lots-bid', to: 'bids#lots_bid', as: :lots_bid
+    get '/registered', to: 'auctions#registered', as: :registered
+    get '/live-auctions', to: 'auctions#live', as: :live
+    get '/my-auctions', to: 'auctions#buyer_auctions', as: :my_auctions
+  end
 end

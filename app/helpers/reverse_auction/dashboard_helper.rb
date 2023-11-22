@@ -1,0 +1,2 @@
+module ReverseAuction::DashboardHelper
+end

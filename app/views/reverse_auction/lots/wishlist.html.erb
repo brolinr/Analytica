@@ -1,0 +1,107 @@
+<div class="mb-5 bg-warning p-2 rounded text-white">
+  <h3 class="display-6 fw-bold">Auctions/Wishlist</h3>
+</div>
+
+<div class="shadow row p-1 px-2 mx-2 rounded">
+  <% @lots.each do |lot| %>
+    <div class="border border-white shadow mb-4 col-2 me-1 rounded p-1 card">
+      <div class="p-0 m-0 border-bottom border-2 border-info mb-2">
+        <h5 class="h5 fw-bold float-start m-0">
+          <%= lot.title.capitalize %>
+        </h5>
+      </div>
+      <div class="">
+      <span class="text-dark-emphasis">
+        <% if lot.bids.any? %>
+          <%  if lot.current_winner == current_company  %>
+            <strong class="text-success">You are the current winner! </strong>
+          <%   else   %>
+            <strong class="text-dark">Winning bid:
+              <%=   number_to_currency(lot.winning_bid.amount)   %>
+            </strong>
+          <%   end %>
+        <%  else %>
+          <strong class="text-dark">Asking ($): </strong>
+          <%=  number_to_currency(lot.asking_price)  %>
+        <%  end %>
+      </span>
+      </div>
+      <div class="">
+      <span class="text-dark-emphasis">
+        <strong class="text-dark">Condition: </strong>
+        <%= lot.condition %>
+      </span>
+      </div>
+      <div class="">
+      <span class="text-dark-emphasis">
+        <strong class="text-dark">Quantity:</strong>
+        <%= lot.quantity %>
+      </span>
+      </div>
+      <div class="">
+      <span class="text-dark-emphasis">
+        <strong class="text-dark">Lot number:</strong>
+        <%= lot.lot_number %>
+      </span>
+      </div>
+      <div class="">
+        <%= link_to 'View', reverse_auction_auction_lot_path(lot.auction, lot), class: 'btn btn-sm px-2 py-1 btn-outline-info fw-bold my-2' %>
+        <% if lot.current_winner == current_company || lot.auction.expired? %>
+        <span class="btn btn-sm px-2 py-1 btn-outline-info fw-bold my-2" data-bs-toggle="modal"
+              data-bs-target=<%= "#new-bid-#{lot.id}" %>>Bid</span>
+        <% end %>
+        <% if lot.collected?(current_company.id) %>
+          <%= link_to '', wish_reverse_auction_lot_path(lot),
+                      class: 'bi-bookmark-heart-fill btn-sm btn px-2 py-1 btn-outline-info fw-bold my-2', data: { turbo_method: :post } %>
+        <% else %>
+          <%= link_to '', wish_reverse_auction_lot_path(lot),
+                      class: 'btn-sm bi-bookmark-heart btn px-2 py-1 btn-outline-info fw-bold my-2', data: { turbo_method: :post } %>
+        <% end %>
+      </div>
+
+      <div class="modal fade" id=<%= "new-bid-#{lot.id}" %> tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel"><%= "#{lot.title.capitalize} bid" %></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="d-flex justify-content-center align-items-center">
+                <div class="col-8 col-lg-6">
+                  <h4 class="fw-semibold text-center">Make offer</h4>
+                  <%= form_with(model: @bid, url: reverse_auction_lot_bids_path(lot), method: :post, data: { turbo: false }) do |f| %>
+                    <div class="row g-3 mt-4 text-dark">
+                      <%= render 'shared/error_messages', object: f.object %>
+
+                      <div class="col-sm-12">
+                        <%= f.label 'Total Amount ($)', class: 'form-label' %>
+                        <%= f.number_field :amount, class: 'form-control', required: true %>
+                      </div>
+
+                      <div class="col-sm-12">
+                        <%= f.label :delivery, class: 'form-label' %>
+                        <%= select_tag :delivery_options, options_for_select(['Included in amount', 'Unavailable']), class: 'form-select', required: true %>
+                      </div>
+
+                      <div class="col-sm-12 mb-2 ">
+                        <%= f.label "Add images", class: 'form-label' %>
+                        <%= f.file_field :images, accept: 'image/*', multiple: true, class: 'form-control', required: true %>
+                      </div>
+
+                      <div class="text-center ">
+                        <%= f.submit "Place bid", class: "text-white btn btn-info btn-md" %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
