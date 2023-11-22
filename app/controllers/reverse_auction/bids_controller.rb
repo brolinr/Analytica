@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReverseAuction::BidsController < ReverseAuction::ApplicationController
   before_action :permitted_params, only: :create
 
@@ -23,10 +25,8 @@ class ReverseAuction::BidsController < ReverseAuction::ApplicationController
   end
 
   def destroy
-    if bid.destroy
-      unless request.referer.empty?
-        redirect_to request.referer, flash: { notice: I18n.t('controllers.bids.destroy_success') }
-      end
+    if bid.destroy && !request.referer.empty?
+      redirect_to request.referer, flash: { notice: I18n.t('controllers.bids.destroy_success') }
     end
   end
 

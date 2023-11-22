@@ -11,7 +11,8 @@ class ReverseAuction::AuctionsController < ReverseAuction::ApplicationController
     @auction = current_company.auctions.build(permitted_params)
 
     if @auction.save
-      redirect_to edit_reverse_auction_auction_path(@auction), flash: { notice: I18n.t('controllers.auctions.create_success') }
+      redirect_to edit_reverse_auction_auction_path(@auction),
+                  flash: { notice: I18n.t('controllers.auctions.create_success') }
     else
       flash[:alert] = resource.errors.full_messages.join(',')
       render :new
@@ -43,12 +44,12 @@ class ReverseAuction::AuctionsController < ReverseAuction::ApplicationController
 
   def update
     if auction.update(permitted_params)
-      redirect_to edit_reverse_auction_auction_path(auction), flash: { notice: I18n.t('controllers.auctions.update_success') }
+      redirect_to edit_reverse_auction_auction_path(auction),
+                  flash: { notice: I18n.t('controllers.auctions.update_success') }
     else
       flash[:alert] = auction.errors.full_messages.join(',')
       render :edit
     end
-
   rescue StandardError
     flash[:alert] = I18n.t('controllers.something_wrong')
     render :edit
@@ -66,7 +67,8 @@ class ReverseAuction::AuctionsController < ReverseAuction::ApplicationController
 
   def extend_deadline
     if auction.update(deadline: auction.deadline.to_time + params[:auction][:extended_days].to_i.days)
-      redirect_to edit_reverse_auction_auction_path(auction), flash: { notice: "The auction has been extended by #{params[:auction][:extended_days]} days." }
+      redirect_to edit_reverse_auction_auction_path(auction),
+                  flash: { notice: "The auction has been extended by #{params[:auction][:extended_days]} days." }
     else
       redirect_to request.referer, flash: { alert: I18n.t('controllers.something_wrong') }
     end
@@ -76,14 +78,14 @@ class ReverseAuction::AuctionsController < ReverseAuction::ApplicationController
     registration = AuctionRegistration.new(company_id: current_company.id, auction_id: auction.id)
 
     if registration.save
-      redirect_to reverse_auction_auction_path(registration.auction), flash: { notice: I18n.t('controllers.auctions.register_success') }
+      redirect_to reverse_auction_auction_path(registration.auction),
+                  flash: { notice: I18n.t('controllers.auctions.register_success') }
     else
       redirect_to reverse_auction_auction_path(auction), flash: { alert: registration.errors.full_messages }
     end
   end
 
-
- private
+  private
 
   def auction
     @auction = Auction.find(params[:id] || params[:auction_id])

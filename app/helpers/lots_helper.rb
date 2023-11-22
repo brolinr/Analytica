@@ -10,11 +10,11 @@ module LotsHelper
     bids.last
   end
 
-  def lost_lot?(company, lot, bids=lot.bids)
+  def lost_lot?(company, lot, bids = lot.bids)
     bids.any? && bids.last.company != company && bids.companies.include?(company)
   end
 
-  def won_lot?(lot, company, bids=lot.bids)
+  def won_lot?(lot, company, bids = lot.bids)
     bids.last.company == company && lot.auction.expired?
   end
 end

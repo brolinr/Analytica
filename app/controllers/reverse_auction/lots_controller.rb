@@ -4,7 +4,7 @@ class ReverseAuction::LotsController < ReverseAuction::ApplicationController
   before_action :permitted_access?, except: %i[wishlist wish show]
   before_action :lot, only: %i[show destroy wish]
 
-  def show;
+  def show
     @bid = Bid.new
   end
 
@@ -28,6 +28,7 @@ class ReverseAuction::LotsController < ReverseAuction::ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def wish
     collection = WatchedLot.find_by(company: current_company, lot: lot)
 
@@ -48,6 +49,7 @@ class ReverseAuction::LotsController < ReverseAuction::ApplicationController
 
     redirect_to request.referer, flash: { notice: notice || alert } if request.referer.present?
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def wishlist
     @lots = current_company.collected_lots

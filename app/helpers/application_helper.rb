@@ -11,7 +11,7 @@ module ApplicationHelper
     end
   end
 
-  def currency_format(price, currency='USD')
+  def currency_format(price, currency = 'USD')
     Money.new(price, currency)
   end
 end

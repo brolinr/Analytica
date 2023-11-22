@@ -2,9 +2,9 @@
 
 class Companies::RegistrationsController < Devise::RegistrationsController
   layout :resolve_layout
-  prepend_before_action :require_no_authentication, only: [:new, :create, :cancel]
-  prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy]
-  prepend_before_action :set_minimum_password_length, only: [:new, :edit]
+  prepend_before_action :require_no_authentication, only: %i[new create]
+  prepend_before_action :authenticate_scope!, only: %i[edit update destroy]
+  prepend_before_action :set_minimum_password_length, only: %i[new edit]
 
   def new
     build_resource
