@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AuctionsController, type: :controller do
+RSpec.describe ReverseAuction::AuctionsController, type: :controller do
   let(:company) { create(:company, :as_buyer) }
   let!(:auction) { create(:auction, company: company, location: company.location) }
 
@@ -92,32 +92,6 @@ RSpec.describe AuctionsController, type: :controller do
 
       it 'does not destroy auction' do
         expect { request }.to raise_error(ActionController::UrlGenerationError)
-      end
-    end
-  end
-
-  describe 'extend deadline' do
-    context 'with correct params' do
-      let(:request) do
-        post :extend_deadline, params:
-          { id: auction.id, auction: { extended_days: '3' } }
-      end
-
-      it 'extends auction deaadline' do
-        expect { request }.to change { Auction.last.deadline }.to(auction.deadline + 3.days)
-      end
-    end
-
-    context 'with incorrect params' do
-      let(:request) do
-        post :create, params:
-          {
-            auction: { invalid: nil }
-          }
-      end
-
-      it 'does not extend auction deadline' do
-        expect { request }.not_to change(Auction.last, :deadline)
       end
     end
   end

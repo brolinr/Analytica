@@ -14,7 +14,7 @@ class ReverseAuction::AuctionsController < ReverseAuction::ApplicationController
       redirect_to edit_reverse_auction_auction_path(@auction),
                   flash: { notice: I18n.t('controllers.auctions.create_success') }
     else
-      flash[:alert] = resource.errors.full_messages.join(',')
+      flash[:alert] = @auction.errors.full_messages.join(',')
       render :new
     end
   end

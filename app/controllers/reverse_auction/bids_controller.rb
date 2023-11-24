@@ -18,14 +18,15 @@ class ReverseAuction::BidsController < ReverseAuction::ApplicationController
     @bid.location = lot.auction.location
 
     if @bid.save
-      redirect_to request.referer, flash: { notice: I18n.t('controllers.bids.create_success') }
+      redirect_to request.referer, flash: {
+        notice: I18n.t('controllers.bids.create_success') } if request.referer.present?
     else
       render 'new'
     end
   end
 
   def destroy
-    if bid.destroy && !request.referer.empty?
+    if bid.destroy && request.referer.present?
       redirect_to request.referer, flash: { notice: I18n.t('controllers.bids.destroy_success') }
     end
   end

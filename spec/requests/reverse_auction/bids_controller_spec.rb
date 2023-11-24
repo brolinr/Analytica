@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BidsController, type: :controller do
+RSpec.describe ReverseAuction::BidsController, type: :controller do
   let(:company) { create(:company, buyer: true, seller: true) }
   let!(:auction) { create(:auction, company: company, location: company.location) }
   let!(:lot) { create(:lot, auction: auction, location: company.location) }

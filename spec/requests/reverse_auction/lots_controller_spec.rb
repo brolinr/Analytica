@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe LotsController, type: :controller do
+RSpec.describe ReverseAuction::LotsController, type: :controller do
   let(:company) { create(:company, buyer: true) }
   let!(:auction) { create(:auction, company: company, location: company.location) }
   let(:lot) { create(:lot, auction: auction, location: auction.location) }
@@ -77,17 +77,17 @@ RSpec.describe LotsController, type: :controller do
     end
   end
 
-  describe 'collect' do
+  describe 'wish' do
     context 'with correct params' do
       let(:request) do
-        post :collect, params:
+        post :wish, params:
           {
             auction_id: auction.id,
             id: lot.id
           }
       end
 
-      it 'collects lot' do
+      it 'wishs lot' do
         lot
         expect { request }.to change(WatchedLot, :count).from(0).to(1)
       end
@@ -95,13 +95,13 @@ RSpec.describe LotsController, type: :controller do
 
     context 'with incorrect params' do
       let(:request) do
-        post :collect, params:
+        post :wish, params:
           {
             id: nil
           }
       end
 
-      it 'does not collect lot' do
+      it 'does not wish lot' do
         expect { request }.to raise_error(ActionController::UrlGenerationError)
       end
     end
