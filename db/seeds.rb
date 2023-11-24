@@ -75,7 +75,6 @@ lot1 = Lot.create!(
   title: 'Lot 1',
   quantity: 10,
   asking_price: 100,
-  description: 'first',
   location: 'Location A',
   company: buyer_company,
   auction: auction1
@@ -85,7 +84,6 @@ lot2 = Lot.create!(
   title: 'Lot 2',
   quantity: 5,
   asking_price: 200,
-  description: 'first',
   location: 'Location A',
   company: buyer_company,
   auction: auction2
