@@ -8,18 +8,32 @@
     <meta name="description" content="Analytica - Your Source for Tenders and RFQs. Find the latest logistics jobs and insightful blog posts.">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <%= javascript_include_tag "count_down", "data-turbo-track": "reload", defer: true %>
     <%= javascript_include_tag "image_preview", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
+    <% if flash.any? %>
+      <% flash.each do |type, message|  %>
+        <% bg = "danger" if type == 'alert'  %>
+        <% bg = "primary" if type == 'notice'  %>
+        <div class="bg-<%= bg %> p-sm-4 rounded-2 text-white">
+          <% if message.is_a?(Array) %>
+            <ul>
+              <% message.each do |msg| %>
+                <li> <%= msg %> </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <span class="bi-stack"><span class="ms-3"> <%= message %> </span></span>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
     <% unless current_page?(root_path) %>
-      <%= render 'partials/header' %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <%= render 'shared/navbar' %>
     <% end %>
 
     <%= yield %>
-    <%= render 'partials/footer'%>
+    <%= render 'shared/footer'%>
   </body>
 </html>

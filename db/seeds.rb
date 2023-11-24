@@ -7,7 +7,7 @@ Bid.destroy_all
 WatchedLot.destroy_all
 
 buyer_company = Company.create(
-  email: 'buyer@example.com',
+  email: 'remunyangabrolin@gmail.com',
   password: 'password',
   name: 'Buyer Company',
   phone: '0771232345',
@@ -30,7 +30,7 @@ buyer_company.confirm
 #seller
 
 seller_company = Company.create!(
-  email: 'seller@example.com',
+  email: 'brolinremz@gmail.com',
   password: 'password',
   name: 'Seller Company',
   phone: '0771232445',
@@ -53,7 +53,7 @@ seller_company.confirm
 auction1 = Auction.create!(
   title: 'Auction 1',
   location: 'Location A',
-  company: Company.first,
+  company: buyer_company,
   description: 'This is a wider card with supporting text below as a natural
             lead-in to additional content. This content is a little bit longer.',
   start: Time.now,
@@ -65,7 +65,7 @@ auction2 = Auction.create!(
   location: 'Location A',
   description: 'This is a wider card with supporting text below as a natural
             lead-in to additional content. This content is a little bit longer.',
-  company: Company.first,
+  company: buyer_company,
   start: Time.now,
   deadline: Time.now + 5.days
 )
@@ -75,9 +75,8 @@ lot1 = Lot.create!(
   title: 'Lot 1',
   quantity: 10,
   asking_price: 100,
-  description: 'first',
   location: 'Location A',
-  company: Company.first,
+  company: buyer_company,
   auction: auction1
 )
 
@@ -85,9 +84,8 @@ lot2 = Lot.create!(
   title: 'Lot 2',
   quantity: 5,
   asking_price: 200,
-  description: 'first',
   location: 'Location A',
-  company: Company.first,
+  company: buyer_company,
   auction: auction2
 )
 

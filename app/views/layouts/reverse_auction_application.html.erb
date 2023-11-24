@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "count_down", "data-turbo-track": "reload", defer: true %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <%= javascript_include_tag "image_preview", "data-turbo-track": "reload", defer: true %>
+
+  <style>
+      body {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      .sidebar {
+          position: fixed;
+          top: 0;
+          /* rtl:raw:
+          right: 0;
+          */
+          bottom: 0;
+          /* rtl:remove */
+          left: 0;
+          z-index: 100; /* Behind the navbar */
+          padding: 48px 0 0; /* Height of navbar */
+          box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+      }
+
+      .sidebar a {
+          color: white;
+          text-decoration: none;
+          margin-bottom: 10px;
+      }
+  </style>
+</head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+          <%= render 'shared/sidebar' %>
+        </nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-3">
+          <% if flash.any? %>
+            <% flash.each do |type, message|  %>
+              <% bg = "danger" if type == 'alert'  %>
+              <% bg = "primary" if type == 'notice'  %>
+              <div class="bg-<%= bg %> p-sm-4 rounded-2 mb-sm-3 text-center text-white">
+                <% if message.is_a?(Array) %>
+                  <ul>
+                    <% message.each do |msg| %>
+                      <li> <%= msg %> </li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <span><%= message %></span>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

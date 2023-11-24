@@ -10,4 +10,8 @@ module ApplicationHelper
       "#{page_title} | #{base_title}"
     end
   end
+
+  def currency_format(price, currency = 'USD')
+    Money.new(price, currency)
+  end
 end

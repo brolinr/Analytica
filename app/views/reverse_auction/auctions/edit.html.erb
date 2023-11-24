@@ -1,0 +1,39 @@
+
+
+<div class="container">
+  <nav>
+    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#add-lots" type="button" role="tab" aria-controls="add-lots" aria-selected="true">Manage Lots</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Auction</button>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="add-lots" role="tabpanel" aria-labelledby="add-lots-tab">
+      <div class="p-4 rounded mb-3">
+        <h3 class="display-3 text-center"><%= @auction.title %></h3>
+
+        <div class="row rounded shadow justify-content-center p-4">
+          <div class="bg-white col-5 p-1 rounded row-cols-1 me-3 shadow-sm">
+            <h1 class="text-center mb-2">Add Lot</h1>
+            <div class="p-3 fw-bold">
+              <%= render 'reverse_auction/auctions/lots/form', data: { lot: @lot, auction: @auction } %>
+            </div>
+          </div>
+
+          <div class="col-6 p-1 bg-white rounded shadow-sm">
+            <h1 class="text-center mb-3">Lots in this auction</h1>
+            <%= render 'reverse_auction/auctions/lots/lots', data: { lots: @lots } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div class="d-flex justify-content-center align-items-center">
+      <%= render 'reverse_auction/auctions/form', data: { auction: @auction } %>
+    </div>
+  </div>
+
+</div>

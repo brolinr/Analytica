@@ -1,0 +1,45 @@
+<div class="mb-5 bg-warning p-2 rounded text-white">
+  <h3 class="display-6 fw-bold">Auctions/My Auctions</h3>
+</div>
+
+
+<div class="container-fluid">
+  <table class="table table-bordered shadow">
+    <thead class="table-active">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Lots</th>
+      <th>Time left</th>
+      <th scope="col">Created at</th>
+      <th>Updated at</th>
+      <th class="text-center" scope="col">Active</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @buyer_auctions.each do |auction| %>
+      <tr>
+        <th scope="row"><%= auction.id %></th>
+        <td><%= auction.title.truncate(20) %></td>
+        <td><%= auction.lots.count %></td>
+        <td>56d 34h 34m 59s</td>
+        <td><%= auction.created_at&.strftime('%b %d, %Y') %></td>
+        <td><%= auction.updated_at&.strftime('%b %d, %Y') %></td>
+        <td class="text-center ">
+          <% if auction.expired? %>
+            <span class="rounded-pill px-2 border border-info-emphasis text-info-emphasis">Expired</span>
+          <% else %>
+            <span class="rounded-pill px-2 border border-info text-info">Active</span>
+          <% end %>
+        </td>
+        <td class="m-0">
+          <%= link_to '', reverse_auction_auction_path(auction), class: 'rounded py-1 px-2 mb-2 border border-info bi-eye-fill text-info ' %>
+          <%= link_to '', edit_reverse_auction_auction_path(auction), class: 'rounded p-1 px-2 mb-2 border border-primary bi-pencil-fill text-primary' %>
+          <%= link_to '', reverse_auction_auction_path(auction), class: 'btn rounded p-1 px-2 border mb-2 border-danger bi-trash2-fill text-danger', data: { turbo_method: :delete } %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

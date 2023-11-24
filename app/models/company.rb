@@ -16,6 +16,7 @@ class Company < ApplicationRecord
   has_many :lots, dependent: :destroy
   has_many :watched_lots, dependent: :destroy
   has_many :collected_lots, through: :watched_lots, source: :lot
+  has_many :lots_bid, through: :bids, source: :lot
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :about, length: { maximum: 300 }

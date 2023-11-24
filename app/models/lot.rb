@@ -3,18 +3,15 @@
 class Lot < ApplicationRecord
   before_create :assign_lot_number, :set_location
 
-  has_rich_text :description
-
   belongs_to :company
   belongs_to :auction
 
   has_many :bids, dependent: :destroy
-  has_many :watched_lots, dependent: :nullify
+  has_many :watched_lots, dependent: :destroy
 
   validates :title, presence: true
-  validates :description, presence: true
 
-  validate :auction_expiry
+  validate :auction_expired?
   validate :locations
   validate :company_is_buyer?
 
@@ -22,25 +19,33 @@ class Lot < ApplicationRecord
     watched_lots.create!(lot_id: id, company_id: company_id)
   end
 
-  def lost_lot?(company)
-    bids.any? && bids.last.company != company && bids.pluck(:company_id).include?(company.id)
-  end
-
   def collected?(company_id)
     watched_lot = WatchedLot.find_by(lot_id: id, company_id: company_id)
     watched_lot.present?
   end
 
-  def current_bid
+  def winning_bid
     bids.last
+  end
+
+  def winner
+    return unless auction.expired?
+
+    bids&.last&.company
+  end
+
+  def current_winner
+    return if auction.expired?
+
+    bids&.last&.company
   end
 
   private
 
-  def auction_expiry
+  def auction_expired?
     return if auction.blank?
 
-    if Time.current >= auction.deadline.to_time
+    if Time.current > auction.deadline.to_time
       errors.add(:base, I18n.t('activerecord.errors.models.lot.errors.deadline_passed'))
     end
   end
