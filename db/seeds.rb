@@ -1,47 +1,17 @@
-if Rails.env.development?
-  DatabaseCleaner.clean_with(:truncation)
-  buyer_company = Company.create(
-    email: 'buyer@example.com',
-    password: 'password',
-    name: 'Buyer Company',
-    phone: '0771232345',
-    location: 'Location A',
-    address: '6705 southlea park',
-    terms_and_conditions: true,
-    buyer: true
-  ) do |company|
-    pdf_path = Rails.root.join('spec/factories/media/documents/test.pdf')
+#buyer
+Company.destroy_all
+Auction.destroy_all
+AuctionRegistration.destroy_all
+Lot.destroy_all
+Bid.destroy_all
+WatchedLot.destroy_all
 
-    company.tax_clearance.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-    company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-    company.cr5.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-    company.cr6.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-  end
-
-  seller_company = Company.create!(
-    email: 'seller@example.com',
-    password: 'password',
-    name: 'Seller Company',
-    phone: '0771232445',
-    address: '6705 southlea park',
-    terms_and_conditions: true,
-    location: 'Location A',
-    seller: true,
-  ) do |company|
-    pdf_path = Rails.root.join('spec/factories/media/documents/test.pdf')
-
-    company.tax_clearance.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-    company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-    company.cr5.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-    company.cr6.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-  end
-else
-  buyer_company = Company.create(
+buyer_company = Company.create(
   email: 'remunyangabrolin@gmail.com',
   password: 'password',
   name: 'Buyer Company',
   phone: '0771232345',
-  location: 'Harare',
+  location: 'Location A',
   address: '6705 southlea park',
   terms_and_conditions: true,
   buyer: true
@@ -52,6 +22,12 @@ else
   company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
   company.cr5.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
   company.cr6.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
+end
+
+buyer_company.confirm
+
+
+#seller
 
 seller_company = Company.create!(
   email: 'brolinremz@gmail.com',
@@ -72,21 +48,77 @@ seller_company = Company.create!(
 end
 
 seller_company.confirm
-end
-
-buyer_company.confirm
-end
 
 # Create auctions
+auction1 = Auction.create!(
+  title: 'Auction 1',
+  location: 'Location A',
+  company: Company.first,
+  description: 'This is a wider card with supporting text below as a natural
+            lead-in to additional content. This content is a little bit longer.',
+  start: Time.now,
+  deadline: Time.now + 5.days
+)
 
-3.times do
-  FactoryBot.create(:auction, company: Company.first)
-end
-
+auction2 = Auction.create!(
+  title: 'Auction 2',
+  location: 'Location A',
+  description: 'This is a wider card with supporting text below as a natural
+            lead-in to additional content. This content is a little bit longer.',
+  company: Company.first,
+  start: Time.now,
+  deadline: Time.now + 5.days
+)
 
 # Create lots
-Auction.all.each do |auction|
-  25.times do
-    FactoryBot.create(:lot, auction: auction, company: Company.first)
-  end
-end
+lot1 = Lot.create!(
+  title: 'Lot 1',
+  quantity: 10,
+  asking_price: 100,
+  description: 'first',
+  location: 'Location A',
+  company: Company.first,
+  auction: auction1
+)
+
+lot2 = Lot.create!(
+  title: 'Lot 2',
+  quantity: 5,
+  asking_price: 200,
+  description: 'first',
+  location: 'Location A',
+  company: Company.first,
+  auction: auction2
+)
+
+# Create auction registrations
+AuctionRegistration.create!(
+  company: Company.last,
+  auction: auction1,
+  company_approved: true
+)
+
+AuctionRegistration.create!(
+  company: Company.last,
+  auction: auction2,
+  company_approved: true
+)
+
+# Create bids
+Bid.create!(
+  amount: 90,
+  location: 'Location A',
+  company: Company.last,
+  lot: lot1
+)
+
+Bid.create!(
+  amount: 180,
+  location: 'Location B',
+  company: Company.last,
+  lot: lot2
+)
+
+Category.create(title: 'Electronics')
+Category.create(title: 'Clothing')
+Category.create(title: 'Furniture')
