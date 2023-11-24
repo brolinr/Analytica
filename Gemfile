@@ -10,6 +10,7 @@ gem 'activestorage-validator',              '~> 0.4.0'
 gem 'bootsnap',                             '~> 1.16.0', require: false
 gem 'cssbundling-rails',                    '~> 1.2.0'
 gem 'dalli',                                '~> 3.2'
+gem 'database_cleaner-active_record',       '~> 2.1'
 gem 'devise',                               '~> 4.8.1'
 gem 'dotenv-rails',                         '>= 2.8.1'
 gem 'image_processing',                     '~> 1.2'

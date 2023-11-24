@@ -15,4 +15,22 @@ class ApplicationController < ActionController::Base
        certificate_of_incorporation tax_clearance
        cr5 cr6 terms_and_conditions password password_confirmation current_password]
   end
+
+  protected
+
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(Company)
+      reverse_auction_root_path
+    else
+      super
+    end
+  end
+
+  def after_sign_up_path_for(resource)
+    if resource.is_a?(Company)
+      reverse_auction_root_path
+    else
+      super
+    end
+  end
 end
