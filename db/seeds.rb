@@ -1,6 +1,5 @@
-DatabaseCleaner.clean_with(:truncation)
-
 if Rails.env.development?
+  DatabaseCleaner.clean_with(:truncation)
   buyer_company = Company.create(
     email: 'buyer@example.com',
     password: 'password',
