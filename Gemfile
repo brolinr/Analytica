@@ -54,3 +54,5 @@ group :test do
 end
 
 gem 'dalli', '~> 3.2'
+
+gem "postmark-rails", "~> 0.22.1"
