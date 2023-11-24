@@ -53,7 +53,7 @@ seller_company.confirm
 auction1 = Auction.create!(
   title: 'Auction 1',
   location: 'Location A',
-  company: Company.first,
+  company: buyer_company,
   description: 'This is a wider card with supporting text below as a natural
             lead-in to additional content. This content is a little bit longer.',
   start: Time.now,
@@ -65,7 +65,7 @@ auction2 = Auction.create!(
   location: 'Location A',
   description: 'This is a wider card with supporting text below as a natural
             lead-in to additional content. This content is a little bit longer.',
-  company: Company.first,
+  company: buyer_company,
   start: Time.now,
   deadline: Time.now + 5.days
 )
@@ -77,7 +77,7 @@ lot1 = Lot.create!(
   asking_price: 100,
   description: 'first',
   location: 'Location A',
-  company: Company.first,
+  company: buyer_company,
   auction: auction1
 )
 
@@ -87,7 +87,7 @@ lot2 = Lot.create!(
   asking_price: 200,
   description: 'first',
   location: 'Location A',
-  company: Company.first,
+  company: buyer_company,
   auction: auction2
 )
 
