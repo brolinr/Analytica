@@ -18,8 +18,11 @@ class ReverseAuction::BidsController < ReverseAuction::ApplicationController
     @bid.location = lot.auction.location
 
     if @bid.save
-      redirect_to request.referer, flash: {
-        notice: I18n.t('controllers.bids.create_success') } if request.referer.present?
+      if request.referer.present?
+        redirect_to request.referer, flash: {
+          notice: I18n.t('controllers.bids.create_success')
+        }
+      end
     else
       render 'new'
     end
