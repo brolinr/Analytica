@@ -1,0 +1,31 @@
+<% provide(:title, "Resend unlock instructions") %>
+
+<div class="container p-lg-5">
+  <div class="row justify-content-center g-5 px-5">
+    <div class="col-md-7 col-lg-8">
+      <h4 class="fw-bold ">Resend unlock instructions </h4>
+      <small class="mb-5 bi-envelope-fill">
+        Resend instructions to unlock your account?
+      </small>
+
+      <%= render "shared/error_messages", object: resource %>
+
+      <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }, data: {turbo: false}) do |f| %>
+        <div class="row g-3 my-4 text-dark">
+          <div class="col-10 mb-2">
+            <%= f.label :email_address, class: 'form-label' %>
+            <%= f.email_field :email, class: 'form-control', placeholder: "you@example.com" %>
+          </div>
+
+          <div class="col-12">
+            <%= f.submit "Resend unlocking instructions", class: "btn btn-primary btn-md" %>
+          </div>
+        </div>
+      <% end %>
+
+      <span class="text-muted">Account not locked?
+        <%= link_to "Sign in? ", new_session_path(resource_name), class: "text-primary text-decoration-none" %>
+      </span>
+    </div>
+  </div>
+</div>

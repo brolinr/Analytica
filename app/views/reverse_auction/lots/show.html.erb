@@ -51,7 +51,7 @@
 
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
       <div class="row justify-content-center p-1 rounded-4 shadow">
-        <% unless @lot&.bids.present? %>
+        <% if @lot&.bids.empty? %>
           <h1 class="display-3 text-center mb-sm-3"> Be the first to bid! </h1>
           <p class="fw-bold text-center">The starting bid for this lot is
             <span class="h5 text-primary">$<%= @lot&.asking_price %>.00</span>

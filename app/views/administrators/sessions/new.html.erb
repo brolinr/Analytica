@@ -1,0 +1,36 @@
+<% provide(:title, "Log in") %>
+
+<div class="container mt-5 py-4">
+  <div class="row justify-content-center g-5 px-5">
+    <div class="col-5 p-3 bg-light rounded pb-5 row justify-content-between">
+      <h4 class="fw-bold ">Sign in to your account!</h4>
+
+      <small class="mb-4 bi-person-fill-exclamation">
+        Sign in to to manage resources as the admin
+      </small>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
+        <div class="row g-3 text-dark">
+          <div class="col-10 mb-2">
+            <%= f.label :email_address, class: 'form-label' %>
+            <%= f.email_field :email, class: 'form-control', placeholder: "you@example.com" %>
+          </div>
+
+          <div class="col-10 mb-2">
+            <%= f.label :password, class: 'form-label' %>
+            <%= f.password_field :password, class: 'form-control' %>
+          </div>
+
+          <div class="form-check">
+            <%= f.check_box :remember_me, class: 'form-check-input' %>
+            <%= f.label 'Remember me on this computer.', class: "form-check-label" %>
+          </div>
+
+          <div class="col-12 mb-3">
+            <%= f.submit "Log in", class: "btn btn-primary btn-md" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
