@@ -1,15 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :administrators, only: %i[sessions unlocks]
   root to: 'static_pages#home'
   get 'about', to: 'static_pages#about'
   get 'contact', to: 'static_pages#contact'
 
-  devise_for :companies, controllers: {
-    sessions: 'companies/sessions',
-    registrations: 'companies/registrations',
-    passwords: 'companies/passwords',
-    confirmations: 'companies/confirmations'
-  }
-
+  devise_for :companies
   namespace :reverse_auction do
     root to: 'dashboard#index'
     resources :auctions, except: :index do

@@ -1,10 +1,5 @@
 #buyer
-Company.destroy_all
-Auction.destroy_all
-AuctionRegistration.destroy_all
-Lot.destroy_all
-Bid.destroy_all
-WatchedLot.destroy_all
+DatabaseCleaner.clean_with(:truncation)
 
 buyer_company = Company.create(
   email: 'remunyangabrolin@gmail.com',
@@ -120,3 +115,8 @@ Bid.create!(
 Category.create(title: 'Electronics')
 Category.create(title: 'Clothing')
 Category.create(title: 'Furniture')
+Administrator.create!(
+  email: 'admin@example.com',
+  password: 'password',
+  password_confirmation: 'password'
+)

@@ -18,19 +18,21 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def after_sign_in_path_for(resource)
-    if resource.is_a?(Company)
+  def after_sign_in_path_for(_resource)
+    case resource_name
+    when :company
       reverse_auction_root_path
-    else
-      super
+    when :administrator
+      root_path
     end
   end
 
-  def after_sign_up_path_for(resource)
-    if resource.is_a?(Company)
+  def after_sign_up_path_for(_resource)
+    case resource_name
+    when :company
       reverse_auction_root_path
-    else
-      super
+    when :administrator
+      root_path
     end
   end
 end
