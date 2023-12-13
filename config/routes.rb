@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
   devise_for :administrators, only: %i[sessions unlocks]
+  namespace :admin do
+      resources :auctions
+      resources :auction_registrations
+      resources :bids
+      resources :categories
+      resources :companies
+      resources :lots
+      resources :watched_lots
+
+      root to: "auctions#index"
+    end
   root to: 'static_pages#home'
   get 'about', to: 'static_pages#about'
   get 'contact', to: 'static_pages#contact'

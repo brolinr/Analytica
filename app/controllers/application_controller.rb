@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     when :company
       reverse_auction_root_path
     when :administrator
-      root_path
+      admin_root_path
     end
   end
 
