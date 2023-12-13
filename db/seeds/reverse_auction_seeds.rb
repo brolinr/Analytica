@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 DatabaseCleaner.clean_with(:truncation)
 
 buyer_company = Company.create(
@@ -13,15 +15,15 @@ buyer_company = Company.create(
   pdf_path = Rails.root.join('spec/factories/media/documents/test.pdf')
 
   company.tax_clearance.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-  company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
+  company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf',
+                                              content_type: 'application/pdf')
   company.cr5.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
   company.cr6.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
 end
 
 buyer_company.confirm
 
-
-#seller
+# seller
 
 seller_company = Company.create!(
   email: 'brolinremz@gmail.com',
@@ -31,12 +33,13 @@ seller_company = Company.create!(
   address: '6705 southlea park',
   terms_and_conditions: true,
   location: 'Location A',
-  seller: true,
+  seller: true
 ) do |company|
   pdf_path = Rails.root.join('spec/factories/media/documents/test.pdf')
 
   company.tax_clearance.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
-  company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
+  company.certificate_of_incorporation.attach(io: File.open(pdf_path), filename: 'test.pdf',
+                                              content_type: 'application/pdf')
   company.cr5.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
   company.cr6.attach(io: File.open(pdf_path), filename: 'test.pdf', content_type: 'application/pdf')
 end
@@ -50,8 +53,8 @@ auction1 = Auction.create!(
   company: buyer_company,
   description: 'This is a wider card with supporting text below as a natural
             lead-in to additional content. This content is a little bit longer.',
-  start: Time.now,
-  deadline: Time.now + 5.days
+  start: Time.zone.now,
+  deadline: 5.days.from_now
 )
 
 auction2 = Auction.create!(
@@ -60,8 +63,8 @@ auction2 = Auction.create!(
   description: 'This is a wider card with supporting text below as a natural
             lead-in to additional content. This content is a little bit longer.',
   company: buyer_company,
-  start: Time.now,
-  deadline: Time.now + 5.days
+  start: Time.zone.now,
+  deadline: 5.days.from_now
 )
 
 # Create lots
