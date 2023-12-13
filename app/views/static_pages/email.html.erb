@@ -1,0 +1,21 @@
+<div class="bg-light p-1 row rounded mx-auto justify-content-center">
+  <div class="p-2 col-5 shadow">
+    <%= image_tag 'email_illustration.jpg', class: 'img-fluid ' %>
+  </div>
+  <div class="bg-light p-2 col-6 shadow text-center">
+    <div class="g-4 px-5">
+      <h4 class="display-4">Welcome to <span class="text-primary my-0">Analytica</span></h4>
+      <p class="text-center">
+        An account with this email has been created on Analytica.
+        Please confirm the account.
+      </p>
+
+      <%= link_to 'Confirm account', root_path,
+        class: 'btn btn-primary mb-4' %>
+
+      <p class="text-info">
+        If you did not create an account on Analytica please ignore this email.
+      </p>
+    </div>
+  </div>
+</div>
