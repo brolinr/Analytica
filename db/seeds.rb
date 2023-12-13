@@ -1,3 +1,4 @@
+return admin if ENV['RAILS_ENV'] == 'production' && Administrator.count < 1
 #buyer
 DatabaseCleaner.clean_with(:truncation)
 
@@ -115,8 +116,10 @@ Bid.create!(
 Category.create(title: 'Electronics')
 Category.create(title: 'Clothing')
 Category.create(title: 'Furniture')
-Administrator.create!(
-  email: 'admin@example.com',
-  password: 'password',
-  password_confirmation: 'password'
-)
+def admin
+  Administrator.create!(
+    email: 'admin@example.com',
+    password: 'password',
+    password_confirmation: 'password'
+  )
+end
