@@ -10,7 +10,7 @@
         for your business instead.
       </small>
 
-      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, data: {turbo: false}) do |f| %>
         <div class="row g-3 my-4 text-dark">
           <div class="col-10 mb-2">
             <%= f.label :email_address, class: 'form-label' %>
