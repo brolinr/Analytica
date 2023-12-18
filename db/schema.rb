@@ -10,31 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_102432) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_14_073753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "action_text_rich_texts", force: :cascade do |t|
+  create_table "action_text_rich_texts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
+    t.uuid "record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.uuid "record_id", null: false
+    t.uuid "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -46,8 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_102432) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+  create_table "active_storage_variant_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -70,9 +70,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_102432) do
     t.index ["unlock_token"], name: "index_administrators_on_unlock_token", unique: true
   end
 
-  create_table "auction_registrations", force: :cascade do |t|
-    t.bigint "company_id", null: false
-    t.bigint "auction_id", null: false
+  create_table "auction_registrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "company_id", null: false
+    t.uuid "auction_id", null: false
     t.boolean "company_approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -80,25 +80,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_102432) do
     t.index ["company_id"], name: "index_auction_registrations_on_company_id"
   end
 
-  create_table "auctions", force: :cascade do |t|
+  create_table "auctions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.text "notes"
     t.string "location"
     t.boolean "expired", default: false
     t.datetime "start"
     t.datetime "deadline"
-    t.bigint "company_id", null: false
+    t.uuid "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_auctions_on_company_id"
   end
 
-  create_table "bids", force: :cascade do |t|
+  create_table "bids", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "amount"
     t.text "delivery_options"
     t.string "location"
-    t.bigint "lot_id", null: false
-    t.bigint "company_id", null: false
+    t.uuid "lot_id", null: false
+    t.uuid "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_bids_on_company_id"
@@ -111,7 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_102432) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "companies", force: :cascade do |t|
+  create_table "companies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -137,14 +137,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_102432) do
     t.index ["reset_password_token"], name: "index_companies_on_reset_password_token", unique: true
   end
 
-  create_table "lots", force: :cascade do |t|
+  create_table "company_onboardings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", default: "", null: false
+    t.string "phone", null: false
+    t.string "address", null: false
+    t.text "about", default: "", null: false
+    t.string "location", null: false
+    t.boolean "terms_and_conditions", null: false
+    t.boolean "buyer", default: false, null: false
+    t.boolean "seller", default: false, null: false
+    t.integer "approval", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_company_onboardings_on_email", unique: true
+    t.index ["phone"], name: "index_company_onboardings_on_phone", unique: true
+  end
+
+  create_table "lots", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.integer "quantity"
     t.integer "asking_price"
     t.string "location"
     t.string "condition"
-    t.bigint "company_id", null: false
-    t.bigint "auction_id", null: false
+    t.uuid "company_id", null: false
+    t.uuid "auction_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "lot_number"
@@ -152,9 +169,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_102432) do
     t.index ["company_id"], name: "index_lots_on_company_id"
   end
 
-  create_table "watched_lots", force: :cascade do |t|
-    t.bigint "lot_id", null: false
-    t.bigint "company_id", null: false
+  create_table "watched_lots", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "lot_id", null: false
+    t.uuid "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_watched_lots_on_company_id"
