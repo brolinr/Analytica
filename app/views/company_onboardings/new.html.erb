@@ -1,0 +1,101 @@
+<%= javascript_include_tag "switch_tabs", "data-turbo-track": "reload", defer: true %>
+<% provide(:title, 'Onboarding') %>
+<div class="row bg-light mx-sm-auto my-sm-3 container p-2">
+  <div class="col-sm-2 bg-light p-2 my-4" id="nav-tab" role="tablist">
+    <button class="btn btn-outline-info mb-2 w-100 active" id="company-details-tab" data-bs-toggle="tab" data-bs-target="#company-details" type="button" role="tab" aria-controls="company-details" aria-selected="true">Company details</button>
+    <button class="btn btn-outline-info mb-2 w-100" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab" aria-controls="documents" aria-selected="false"> Documents</button>
+  </div>
+  
+  <div class="col-sm-10 mx-sm-auto p-3 rounded shadow-sm">
+    <div class="mb-3 px-3">
+      <h2 class="fw-bold my-0">Get started now!</h2>
+      <small class="my-2">
+        Already registered?
+        <%= link_to "Sign in", new_company_session_path, class: "text-primary text-decoration-none" %>
+        to your account instead.
+      </small>
+    </div>
+
+    <%= form_with(url: company_onboardings_path, model: @company_onboarding, html: { method: :post, data: { turbo: false } }) do |f| %>
+
+      <div class="tab-content" id="nav-tabContent">
+        <%= render "shared/error_messages", object: @company_onboarding %>
+        <div class="tab-pane fade show active" id="company-details" role="tabpanel" aria-labelledby="company-details-tab">
+          <div class="container-fluid p-3 row fw-semibold">
+            <div class="col-sm-5 mb-3">
+              <%= f.label 'Company name', class: 'form-label my-0' %>
+              <%= f.text_field :name, class: 'form-control', placeholder: "Analytica" %>
+            </div>
+
+            <div class="col-sm-5 mb-3">
+              <%= f.label :phone, class: 'form-label my-0' %>
+              <%= f.telephone_field :phone, class: 'form-control', placeholder: "(024) 0123457" %>
+            </div>
+
+            <div class="col-sm-10 mb-3">
+              <%= f.label :email, class: 'form-label my-0' %>
+              <%= f.email_field :email, class: 'form-control', placeholder: "you@example.com" %>
+            </div>
+
+            <div class="col-sm-5 mb-3">
+              <%= f.label 'Street address', class: 'form-label my-0' %>
+              <%= f.text_field :address, class: 'form-control', placeholder: "1234 Street" %>
+            </div>
+
+            <div class="col-sm-5 mb-3">
+              <%= f.label :city, class: 'form-label my-0' %>
+              <%= f.text_field :location, class: 'form-control', placeholder: "Harare" %>
+            </div>
+          
+          </div>
+          <div class="col-sm-2 p-2 mx-3 rounded">
+            <%= link_to '#', class: "w-100 btn btn-info text-white", id: "next-button" do %>
+              Next
+            <% end %>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="documents" role="tabpanel" aria-labelledby="documents-tab">
+          <div class="container-fluid p-3 row fw-semibold">
+            <div class="col-6 mb-2">
+              <%= f.label :certificate_of_incorporation, class: 'form-label' %>
+              <%= f.file_field :certificate_of_incorporation,accept: 'application/pdf' , class: 'form-control' %>
+            </div>
+
+            <div class="col-6 mb-2">
+              <%= f.label :tax_clearence, class: 'form-label' %>
+              <%= f.file_field :tax_clearance,accept: 'application/pdf' , class: 'form-control' %>
+            </div>
+
+            <div class="col-6 mb-2">
+              <%= f.label :cr5, class: 'text-uppercase form-label' %>
+              <%= f.file_field :cr5, accept: 'application/pdf' , class: 'form-control' %>
+            </div>
+
+            <div class="col-6 mb-3">
+              <%= f.label :cr6, class: 'text-uppercase form-label' %>
+              <%= f.file_field :cr6, accept: 'application/pdf', class: 'form-control' %>
+            </div>
+
+            <div class="form-check">
+              <%= f.check_box :terms_and_conditions, class: 'form-check-input border-dark' %>
+              <%= f.label 'I agree to the terms and conditions.', class:"form-check-label" %>
+            </div>
+
+            <div class="row col-sm-10 p-2 mx-3 rounded justify-content-center">
+              <%= f.submit "Finish", class: "btn btn-primary btn-lg w-50 text-center" %>
+            </div>
+          </div>
+          
+          <div class="col-sm-2 p-2 mx-3 rounded">
+            <%= link_to '#', class: "w-100 btn btn-info text-white", id: "previous-button" do %>
+              Previous
+            <% end %>
+          </div>
+        </div>
+      </div>
+      
+    <% end %>
+    
+  </div>
+</div>

@@ -8,20 +8,16 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
 
   before { sign_in company }
 
+  describe 'GET #new' do
+    it 'returns http success' do
+      get :new
+      expect(response).to be_successful
+    end
+  end
+
   describe 'create' do
     context 'with correct params' do
-      let(:request) do
-        post :create, params:
-          {
-            auction: {
-              title: 'New Auction',
-              description: 'Desc',
-              location: company.location,
-              start: Time.current,
-              deadline: 5.days.from_now
-            }
-          }
-      end
+      let(:request) { post :create, params: { auction: attributes_for(:auction) } }
 
       it 'creates auction' do
         expect { request }.to change(Auction, :count).by(1)
@@ -29,12 +25,7 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
     end
 
     context 'with incorrect params' do
-      let(:request) do
-        post :create, params:
-          {
-            auction: { invalid: nil }
-          }
-      end
+      let(:request) { post :create, params: { auction: { invalid: nil } } }
 
       it 'does not create auction' do
         expect { request }.not_to change(Auction, :count)
@@ -44,11 +35,7 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
 
   describe 'update' do
     context 'with correct params' do
-      let(:request) do
-        patch :update, params:
-          { id: auction.id,
-            auction: { title: 'Updated Title' } }
-      end
+      let(:request) { patch :update, params: { id: auction.id, auction: { title: 'Updated Title' } } }
 
       it 'updates auction' do
         expect { request }.to change { Auction.last.title }.from(auction.title).to('Updated Title')
@@ -56,13 +43,7 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
     end
 
     context 'with incorrect params' do
-      let(:request) do
-        patch :update, params:
-          {
-            id: auction.id,
-            auction: { invalid: nil }
-          }
-      end
+      let(:request) { patch :update, params: { id: auction.id, auction: { invalid: nil } } }
 
       it 'does not update auction' do
         expect { request }.not_to change(Auction, :last)
@@ -72,10 +53,7 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
 
   describe 'destroy' do
     context 'with correct params' do
-      let(:request) do
-        post :destroy, params:
-          { id: auction.id }
-      end
+      let(:request) { post :destroy, params: { id: auction.id } }
 
       it 'destroys auction' do
         expect { request }.to change(Auction, :count).from(1).to(0)
@@ -83,12 +61,7 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
     end
 
     context 'with incorrect params' do
-      let(:request) do
-        delete :destroy, params:
-          {
-            id: nil
-          }
-      end
+      let(:request) { delete :destroy, params: { id: nil } }
 
       it 'does not destroy auction' do
         expect { request }.to raise_error(ActionController::UrlGenerationError)
@@ -100,10 +73,7 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
     before { company.update(seller: true) }
 
     context 'with correct params' do
-      let(:request) do
-        post :register, params:
-          { id: auction.id }
-      end
+      let(:request) { post :register, params: { id: auction.id } }
 
       it 'registers current user for auction' do
         expect { request }.to change(AuctionRegistration, :count).to(1).from(0)
@@ -111,10 +81,7 @@ RSpec.describe ReverseAuction::AuctionsController, type: :controller do
     end
 
     context 'with incorrect params' do
-      let(:request) do
-        post :register, params:
-          {}
-      end
+      let(:request) { post :register, params: {} }
 
       it 'does not register company' do
         expect { request }.to raise_error(ActionController::UrlGenerationError)

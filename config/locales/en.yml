@@ -48,6 +48,9 @@ en:
             lot_watched: You have already added this lot to your collection
             deadline_passed: The deadline for the auction has already passed. You cannot watch the lot
   controllers:
+    company_onboardings:
+      create:
+        success: Your details have been sent for verification. We will send you an email soon
     something_wrong: An error occurred. Please try again!
     lots:
       collect:

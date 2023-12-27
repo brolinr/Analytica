@@ -15,16 +15,7 @@ RSpec.describe ReverseAuction::BidsController, type: :controller do
 
   describe 'create' do
     context 'with correct params' do
-      let(:request) do
-        post :create, params:
-          {
-            auction_id: auction.id,
-            lot_id: lot.id,
-            bid: {
-              amount: 100
-            }
-          }
-      end
+      let(:request) { post :create, params: { auction_id: auction.id, lot_id: lot.id, bid: { amount: 100 } } }
 
       it 'creates bid' do
         expect { request }.to change(Bid, :count).by(1)
@@ -33,10 +24,7 @@ RSpec.describe ReverseAuction::BidsController, type: :controller do
 
     context 'with incorrect params' do
       let(:request) do
-        post :create, params:
-          {
-            auction: { invalid: nil }
-          }
+        post :create, params: { auction: { invalid: nil } }
       end
 
       it 'does not create bid' do
@@ -48,12 +36,7 @@ RSpec.describe ReverseAuction::BidsController, type: :controller do
   describe 'destroy' do
     context 'with correct params' do
       let(:request) do
-        post :destroy, params:
-          {
-            auction_id: auction.id,
-            lot_id: lot.id,
-            id: bid.id
-          }
+        post :destroy, params: { auction_id: auction.id, lot_id: lot.id, id: bid.id }
       end
 
       it 'destroys bid' do
@@ -63,12 +46,7 @@ RSpec.describe ReverseAuction::BidsController, type: :controller do
     end
 
     context 'with incorrect params' do
-      let(:request) do
-        delete :destroy, params:
-          {
-            id: nil
-          }
-      end
+      let(:request) { delete :destroy, params: { id: nil } }
 
       it 'does not destroy bid' do
         expect { request }.to raise_error(ActionController::UrlGenerationError)

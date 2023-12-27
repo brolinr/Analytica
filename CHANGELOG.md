@@ -1,8 +1,10 @@
 # Changelog
 
 ## Unreleased
+
 ### Added
 - Setup admin model
+- Onboarding process
 
 ## Version 1.0.0 (2023-10-15)
 
