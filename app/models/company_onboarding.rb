@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CompanyOnboarding < ApplicationRecord
   include Company::Attachments
   include Company::Validations

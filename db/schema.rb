@@ -138,16 +138,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_073753) do
   end
 
   create_table "company_onboardings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", default: "", null: false
-    t.string "phone", null: false
-    t.string "address", null: false
-    t.text "about", default: "", null: false
-    t.string "location", null: false
-    t.boolean "terms_and_conditions", null: false
+    t.boolean "terms_and_conditions", default: false, null: false
     t.boolean "buyer", default: false, null: false
     t.boolean "seller", default: false, null: false
     t.integer "approval", default: 0, null: false
+    t.text "about", default: "", null: false
+    t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "location"
+    t.string "phone"
+    t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_company_onboardings_on_email", unique: true

@@ -13,33 +13,15 @@ RSpec.describe ReverseAuction::LotsController, type: :controller do
 
   describe 'create' do
     context 'with correct params' do
-      let(:request) do
-        post :create, params:
-          {
-            auction_id: auction.id,
-            lot: {
-              title: FFaker::Product.brand,
-              quantity: rand(100),
-              asking_price: rand * 1000,
-              description: FFaker::Book.description,
-              location: company.location
-            }
-          }
-      end
+      let(:request) { post :create, params: { auction_id: auction.id, lot: attributes_for(:lot) } }
 
       it 'creates lot' do
-        expect { request }.to change(Lot, :count).by(1)
+        expect { request }.to change(Lot, :count).from(0).to(1)
       end
     end
 
     context 'with incorrect params' do
-      let(:request) do
-        post :create, params:
-          {
-            auction_id: auction.id,
-            lot: { invalid: nil }
-          }
-      end
+      let(:request) { post :create, params: { auction_id: auction.id, lot: { invalid: nil } } }
 
       it 'does not create lot' do
         expect { request }.not_to change(Lot, :count)
@@ -49,13 +31,7 @@ RSpec.describe ReverseAuction::LotsController, type: :controller do
 
   describe 'destroy' do
     context 'with correct params' do
-      let(:request) do
-        post :destroy, params:
-          {
-            auction_id: auction.id,
-            id: lot.id
-          }
-      end
+      let(:request) { post :destroy, params: { auction_id: auction.id, id: lot.id } }
 
       it 'destroys lot' do
         lot
@@ -64,12 +40,7 @@ RSpec.describe ReverseAuction::LotsController, type: :controller do
     end
 
     context 'with incorrect params' do
-      let(:request) do
-        delete :destroy, params:
-          {
-            id: nil
-          }
-      end
+      let(:request) { delete :destroy, params: { id: nil } }
 
       it 'does not destroy lot' do
         expect { request }.to raise_error(ActionController::UrlGenerationError)

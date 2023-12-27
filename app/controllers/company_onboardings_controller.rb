@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class CompanyOnboardingsController < ApplicationController
   def new
     @company_onboarding = CompanyOnboarding.new
   end
-  
+
   def create
     @company_onboarding = CompanyOnboarding.new(permitted_params)
-    
+
     if @company_onboarding.save
-      redirect_to root_path, flash: { notice: 'Your details have been sent for verification. We will send you an email soon'}
+      redirect_to root_path, flash: { notice: I18n.t('create.success', scope: i18n_scope) }
     else
-      return render :new
+      render :new
     end
   end
 
@@ -22,5 +24,9 @@ class CompanyOnboardingsController < ApplicationController
       :cr5, :cr6, :terms_and_conditions, :password,
       :password_confirmation, :current_password
     )
+  end
+
+  def i18n_scope
+    'controllers.company_onboadings'
   end
 end

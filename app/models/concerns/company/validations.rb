@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Company::Validations
   extend ActiveSupport::Concern
   included do
@@ -25,24 +27,28 @@ module Company::Validations
               presence: { message: I18n.t('activerecord.errors.models.company.errors.tax_clearance.presence') },
               content_type: { in: 'application/pdf',
                               message: I18n.t('activerecord.errors.models.company.errors.pdf_format') },
-              size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
+              size: { less_than: 5.megabytes,
+                      message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
 
     validates :cr5,
               presence: { message: I18n.t('activerecord.errors.models.company.errors.cr5.presence') },
               content_type: { in: 'application/pdf',
                               message: I18n.t('activerecord.errors.models.company.errors.pdf_format') },
-              size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
+              size: { less_than: 5.megabytes,
+                      message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
 
     validates :cr6,
               presence: { message: I18n.t('activerecord.errors.models.company.errors.cr6.presence') },
               content_type: { in: 'application/pdf',
                               message: I18n.t('activerecord.errors.models.company.errors.pdf_format') },
-              size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
+              size: { less_than: 5.megabytes,
+                      message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
 
     validates :logo,
               presence: false,
               content_type: { in: %w[image/jpeg image/png],
                               message: I18n.t('activerecord.errors.models.company.errors.image_format') },
-              size: { less_than: 5.megabytes, message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
+              size: { less_than: 5.megabytes,
+                      message: I18n.t('activerecord.errors.models.company.errors.less_than_5mb') }
   end
 end
