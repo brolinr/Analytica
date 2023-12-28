@@ -7,6 +7,7 @@ ruby '3.1.0'
 
 gem 'active_storage_validations',           '~> 0.9.8'
 gem 'activestorage-validator',              '~> 0.4.0'
+gem 'administrate', '~> 0.19.0'
 gem 'bootsnap',                             '~> 1.16.0', require: false
 gem 'cssbundling-rails',                    '~> 1.2.0'
 gem 'dalli',                                '~> 3.2'
@@ -53,8 +54,7 @@ group :test do
   gem 'capybara',                           '~> 3.39.2'
   gem 'rspec-rails',                        '~> 6.0.1'
   gem 'selenium-webdriver',                 '~> 4.10.0'
+  gem 'simplecov',                          '~> 0.22.0'
   gem 'vcr',                                '~> 6.1.0'
   gem 'webdrivers',                         '~> 5.2.0'
 end
-
-gem 'administrate', '~> 0.19.0'
