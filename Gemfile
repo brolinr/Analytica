@@ -58,3 +58,5 @@ group :test do
   gem 'vcr',                                '~> 6.1.0'
   gem 'webdrivers',                         '~> 5.2.0'
 end
+
+gem 'ransack', '~> 4.1'

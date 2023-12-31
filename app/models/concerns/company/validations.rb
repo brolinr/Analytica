@@ -4,7 +4,6 @@ module Company::Validations
   extend ActiveSupport::Concern
   included do
     validates :name, presence: true, length: { maximum: 50 }
-    validates :about, length: { maximum: 300 }
     validates :phone, presence: true, length: { minimum: 10, maximum: 16 },
                       uniqueness: true
     validates :location, presence: true, length: { maximum: 50 }

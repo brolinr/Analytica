@@ -37,5 +37,7 @@ Rails.application.routes.draw do
     root to: "auctions#index"
   end
   
-  resources :company_onboardings
+  resources :company_onboardings do
+    post '/approve/', on: :member, to: 'company_onboardings#approve', as: :approve
+  end
 end

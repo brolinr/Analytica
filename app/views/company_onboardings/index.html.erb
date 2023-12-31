@@ -1,0 +1,36 @@
+<div class="container-fluid p-lg-5 overflow-hidden">
+  <%= link_to 'BACK TO DASHBOARD', admin_root_path, class: 'btn btn-outline-primary mb-2 fw-bold' %>
+
+  <h1 class="display-3 mb-5">Accounts pending approval</h1>
+
+  <div class="">
+    <%= render 'shared/ransack_search', data: { search_attributes: :name_or_phone_or_email_cont, button_class: 'btn-primary' } %>
+    
+    <table class="table table-striped shadow">
+      <thead>
+      <tr>
+        <th scope="col">Company</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @company_onboardings.each do |company_onboarding| %>
+          <tr>
+            <th scope="row" class="col-sm-4"><%= company_onboarding.name %></th>
+            <td class="col-sm-3"><%= company_onboarding.email %></td>
+            <td class="col-sm-3"><%= company_onboarding.phone %></td>
+            <td class="col-sm-2"><%= company_onboarding.approval.split('_').join(' ').capitalize %></td>
+            <td class="col-sm-1">
+              <%= link_to company_onboarding_path(company_onboarding) do%>
+                <i class="rounded py-1 px-2 btn btn-outline-info bi-eye-fill"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
+</div>

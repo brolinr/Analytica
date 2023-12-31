@@ -4,7 +4,7 @@ require 'administrate/base_dashboard'
 
 class AuctionRegistrationDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::String.with_options(searchable: false),
     auction: Field::BelongsTo,
     company: Field::BelongsTo,
     company_approved: Field::Boolean,

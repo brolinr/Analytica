@@ -4,7 +4,7 @@ require 'administrate/base_dashboard'
 
 class AuctionDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::String.with_options(searchable: false),
     title: Field::String,
     rich_text_description: Field::Text,
     location: Field::String,

@@ -1,0 +1,32 @@
+<div style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin: 0 auto; max-width: 600px;">
+  <div style="padding: 20px; background-color: #ffffff; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+    <%= image_tag 'email_illustration.jpg', alt: 'Email Illustration', style: 'max-width: 100%; height: auto;' %>
+  </div>
+  <div style="background-color: #f8f9fa; padding: 14px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+    <div style="margin: 0 auto; max-width: 400px;">
+      <h4 style="font-size: 2.5rem; color: #007bff;">Dear <%= @company_onboarding.name %></h4>
+      <p>
+        Your account details have been validated. 
+        We regret to inform you that your registration has been disapproved because:
+      </p>
+
+      <p><%= @company_onboarding.reason_for_disapproval %></p>
+
+      <p>
+        If you wish to to use our services rectify the above issue and restart the process through
+        the button below.
+      </p>
+
+      <p>Thank you for your understanding.</p>
+
+      <button href=""<%= @restart_process_path %> style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px; margin-bottom: 20px;">
+        Confirm account
+      </button>
+      
+      <p style="color: #17a2b8;">
+        If the button above doesn't work, you can directly click the link below.
+        <a  style="font-size: 10px" href="<%= @restart_process_path%>"><%= @restart_process_path %></a>
+      </p>
+    </div>
+  </div>
+</div>

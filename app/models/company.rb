@@ -2,6 +2,7 @@
 
 class Company < ApplicationRecord
   include Company::Attachments
+  validates :about, length: { maximum: 300 }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable

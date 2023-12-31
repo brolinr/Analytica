@@ -4,8 +4,8 @@ class CreateCompanyOnboardings < ActiveRecord::Migration[7.0]
       t.boolean :terms_and_conditions, null: false, default: false
       t.boolean :buyer,                null: false, default: false
       t.boolean :seller,               null: false, default: false
-    t.integer :approval,               null: false, default: 0
-    t.text :about,                     null: false, default: ''
+      t.integer :approval,               null: false, default: 0
+      t.text :reason_for_disapproval,                     null: false, default: ''
       t.string :name,                  null: false, default: ""
       t.string :email,                 null: false, default: ""
       t.string :location

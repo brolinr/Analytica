@@ -1,0 +1,13 @@
+<% search_attributes = data[:search_attributes] %>
+<% data[:button_class]&.empty? ? button_class = 'btn-primary' : button_class = data[:button_class] %>
+
+<%= search_form_for @q do |f| %>
+  <div class="row float-end p-2">
+    <div class="col-sm-8">
+      <%= f.search_field search_attributes, class: 'form-control shadow', placeholder: 'Search...' %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.submit 'Submit', class: "btn #{button_class}" %>
+    </div>
+  </div>
+<% end %>
