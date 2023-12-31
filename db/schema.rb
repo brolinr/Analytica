@@ -142,7 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_073753) do
     t.boolean "buyer", default: false, null: false
     t.boolean "seller", default: false, null: false
     t.integer "approval", default: 0, null: false
-    t.text "about", default: "", null: false
+    t.text "reason_for_disapproval", default: "", null: false
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "location"

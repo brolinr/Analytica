@@ -4,7 +4,7 @@ require 'administrate/base_dashboard'
 
 class BidDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::String.with_options(searchable: false),
     amount: Field::Number,
     delivery_options: Field::Text,
     company: Field::BelongsTo,

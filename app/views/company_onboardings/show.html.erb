@@ -1,0 +1,126 @@
+<div class="g-2 row p-5">
+  <h1 class="text-center my-3">Company Onboarding</h1>
+  <div class="col-sm-12 mx-auto">
+    <%= link_to 'BACK TO DASHBOARD', admin_root_path, class: 'btn btn-outline-primary mb-2 fw-bold' %>
+
+    <div class="row rounded shadow p-lg-4">
+      
+      <div class="col-sm-3 p-2">
+                
+        <button class="btn btn-outline-info mb-2" data-bs-toggle="modal" data-bs-target="#certificate_of_incorporation">Certificate Of Incorporation</button>
+        <%= render 'shared/pdf_reader', data: { 
+            document_title: 'Certificate of Incorporation',
+            pdf_path: rails_blob_path(@company_onboarding.certificate_of_incorporation),
+            modal_id: 'certificate_of_incorporation' 
+          } 
+        %>
+        <button class="btn btn-outline-info mb-2" data-bs-toggle="modal" data-bs-target="#tax_clearence_document">Tax Clearence Document</button>
+        <%= render 'shared/pdf_reader', data: { 
+            document_title: 'Tax Clearence Document',
+            pdf_path: rails_blob_path(@company_onboarding.tax_clearance),
+            modal_id: 'tax_clearence_document' 
+          } 
+        %>
+        <button class="btn btn-outline-info mb-2" data-bs-toggle="modal" data-bs-target="#cr5"> CR5 Document</button>
+        <%= render 'shared/pdf_reader', data: { 
+            document_title: 'CR5 Document',
+            pdf_path: rails_blob_path(@company_onboarding.cr5),
+            modal_id: 'cr5' 
+          } 
+        %>
+        <button class="btn btn-outline-info mb-2" data-bs-toggle="modal" data-bs-target="#cr6"> CR6 Document</button>
+        <%= render 'shared/pdf_reader', data: { 
+            document_title: 'CR6 Document',
+            pdf_path: rails_blob_path(@company_onboarding.cr6),
+            modal_id: 'cr6' 
+          } 
+        %>
+      </div>
+
+      <div class="col-sm-9 mx-auto">
+        <h3 class="fw-bold">
+          Name:
+          <span class=" fw-normal float-end">
+            <%= @company_onboarding.name %>
+          </span>
+        </h3>
+
+        <h3 class="fw-bold">
+          Email:
+          <span class=" fw-normal float-end">
+            <%= @company_onboarding.email %>
+          </span>
+        </h3>
+
+        <h3 class="fw-bold">
+          Phone:
+          <span class=" fw-normal float-end">
+            <%= @company_onboarding.phone %>
+          </span>
+        </h3>
+
+        <h3 class="fw-bold">
+          Address:
+          <span class=" fw-normal float-end">
+            <%= @company_onboarding.address %>
+          </span>
+        </h3>
+
+        <h3 class="fw-bold">
+          City:
+          <span class=" fw-normal float-end">
+            <%= @company_onboarding.location %>
+          </span>
+        </h3>
+
+        <h3 class="fw-bold">
+          Terms and conditions:
+          <span class=" fw-normal float-end">
+            <%= @company_onboarding.terms_and_conditions ? 'Accepted' : 'Not accepted' %>
+          </span>
+        </h3>
+
+        <h3 class="fw-bold ">
+          Created at:
+          <span class=" fw-normal float-end">
+            <%= @company_onboarding.created_at&.strftime('%d %b, %Y') %>
+          </span>
+        </h3>
+
+        <div class="row my-5">
+          <div class="col-sm-2">
+            <button class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#disapprove">Disapprove</button>
+          </div>
+          <div class="col-sm-2">
+            <%= form_with model: @company_onboarding, url: approve_company_onboarding_path(@company_onboarding), method: :post, data: { turbo: false } do |f| %>
+              <%= f.hidden_field :approval, value: 'approved' %>
+              <%= f.submit 'Approve', class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade"class="modal fade" id="disapprove" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="disapproveLabel">Disapprove account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with model: @company_onboarding, url: approve_company_onboarding_path(@company_onboarding), method: :post, data: { turbo: false } do |f| %>
+          <%= f.label :reason_for_disapproval, class: 'form-label' %>
+          <%= f.hidden_field :approval, value: 'disapproved' %>
+          <%= f.text_area :reason_for_disapproval, class: 'form-control mb-3' %>
+          <%= f.submit 'Submit', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+      </div>
+    </div>
+  </div>
+</div>
+

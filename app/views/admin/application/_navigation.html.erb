@@ -1,0 +1,15 @@
+<nav class="navigation" role="navigation">
+  <%= link_to(t("administrate.navigation.back_to_app"), root_url, class: "button button--alt button--nav") if defined?(root_url) %>
+  <h1 class="navigation__title">Accounts</h1></br>
+  <%= link_to("Registrations", company_onboardings_path, class: "navigation__link") %>
+  
+  </br>
+  <h1 class="navigation__title">Models</h1></br>
+  <% Administrate::Namespace.new(namespace).resources_with_index_route.each do |resource| %>
+    <%= link_to(
+      display_resource_name(resource),
+      resource_index_route(resource),
+      class: "navigation__link navigation__link--#{nav_link_state(resource)}"
+    ) if accessible_action?(model_from_resource(resource), :index) %>
+  <% end %>
+</nav>

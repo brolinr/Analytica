@@ -4,7 +4,7 @@ require 'administrate/base_dashboard'
 
 class WatchedLotDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::String.with_options(searchable: false),
     company: Field::BelongsTo,
     lot: Field::BelongsTo,
     created_at: Field::DateTime,

@@ -4,7 +4,7 @@ require 'administrate/base_dashboard'
 
 class LotDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::String.with_options(searchable: false),
     lot_number: Field::Number,
     title: Field::String,
     asking_price: Field::Number,

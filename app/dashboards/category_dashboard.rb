@@ -4,8 +4,8 @@ require 'administrate/base_dashboard'
 
 class CategoryDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
-    title: Field::String,
+    id: Field::String.with_options(searchable: false),
+    title: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze

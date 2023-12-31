@@ -7,7 +7,7 @@ RSpec.describe CompanyOnboarding do
     i18n_path = 'activerecord.errors.models.company.errors.terms_and_conditions.presence'
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_length_of(:name).is_at_most(50) }
-    it { is_expected.to validate_length_of(:about).is_at_most(300) }
+    it { is_expected.to validate_length_of(:reason_for_disapproval).is_at_most(300) }
     it { is_expected.to validate_presence_of(:phone) }
     it { is_expected.to validate_length_of(:phone).is_at_least(10).is_at_most(16) }
     it { is_expected.to validate_uniqueness_of(:phone) }

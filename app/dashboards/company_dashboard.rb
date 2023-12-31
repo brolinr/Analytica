@@ -4,7 +4,7 @@ require 'administrate/base_dashboard'
 
 class CompanyDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::String.with_options(searchable: false),
     name: Field::String,
     email: Field::String,
     phone: Field::String,
