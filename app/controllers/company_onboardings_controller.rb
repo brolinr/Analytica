@@ -29,7 +29,7 @@ class CompanyOnboardingsController < ApplicationController
     if company_onboarding.is_a?(CompanyOnboarding) && company_onboarding.pending_review?
       case approval_params[:approval]
       when 'approved'
-        company_onboarding.approved!
+        company_onboarding.update!(approval: :approved, approval_token: SecureRandom.urlsafe_base64(32))
         CompanyOnboardingMailer.with(company_onboarding: company_onboarding).approve.deliver_later
         redirect_to company_onboardings_path, flash: { notice: I18n.t('approved.success', scope: i18n_scope) }
       when 'disapproved'
@@ -39,6 +39,7 @@ class CompanyOnboardingsController < ApplicationController
           company_onboarding: company_onboarding,
           reason_for_disapproval: approval_params[:reason_for_disapproval]
         ).disapprove.deliver_later
+        company_onboarding.destroy!
         redirect_to company_onboardings_path, flash: { notice: I18n.t('disapproved.success', scope: i18n_scope) }
       end
     else
@@ -62,7 +63,7 @@ class CompanyOnboardingsController < ApplicationController
   end
 
   def i18n_scope
-    'controllers.company_onboadings'
+    'controllers.company_onboardings'
   end
 
   def company_onboarding

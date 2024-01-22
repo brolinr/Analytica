@@ -14,7 +14,7 @@
 
       <div class="text-end">
         <%= link_to 'Login', new_company_session_path, class: 'btn btn-outline-light me-2' %>
-        <%= link_to 'Sign up', new_company_registration_url, class: 'btn btn-light' %>
+        <%= link_to 'Sign up', new_company_onboarding_path, class: 'btn btn-light' %>
       </div>
     </header>
   </div>
@@ -30,7 +30,7 @@
         <%= t('views.static_pages.home.entry_hero_desc') %>
       </p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <%= link_to 'Create Account', new_company_registration_path,
+        <%= link_to 'Create Account', new_company_onboarding_path,
                     class: 'btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold'
         %>
 
@@ -60,7 +60,7 @@
           <%= t('views.static_pages.home.feature_one_desc').html_safe %>
         </p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <%= link_to 'Sign up to explore', new_company_registration_path,
+          <%= link_to 'Sign up to explore', new_company_onboarding_path,
                       class: 'btn btn-primary btn-lg px-4 me-md-2'
           %>
         </div>

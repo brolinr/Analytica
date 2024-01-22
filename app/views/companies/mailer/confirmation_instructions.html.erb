@@ -13,8 +13,10 @@
       <%= link_to 'Confirm account', confirmation_url(@resource, confirmation_token: @token), style: 'display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px; margin-bottom: 20px;' %>
 
       <p style="color: #17a2b8;">
-        If you did not create an account on Analytica, please ignore this email.
+        If you did not create an account on Analytica, please ignore this email. Use the link below if button doesn't work.
       </p>
+
+      <a style="font-size: 14px" href="<%= confirmation_url(@resource, confirmation_token: @token) %>"><%= confirmation_url(@resource, confirmation_token: @token) %></a>
     </div>
   </div>
 </div>

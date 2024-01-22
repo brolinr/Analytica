@@ -1,16 +1,18 @@
+
 <% provide(:title, "Forgot password?") %>
 
-<div class="container">
+<div class="container my-5">
+  <%= render "companies/shared/error_messages", resource: resource %>
   <div class="row justify-content-center g-5 px-5">
     <div class="col-md-7 col-lg-8">
       <h4 class="fw-bold ">Forgot password?</h4>
       <small class="mb-5">
-        Are you new?
-        <%= link_to "Create an account", new_company_registration_path, class: "text-primary text-decoration-none" %>
-        for your business instead.
+        Remembered your password?
+        <%= link_to "Login", new_company_session_path, class: "text-primary text-decoration-none" %>
+        to your account instead.
       </small>
 
-      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, data: {turbo: false}) do |f| %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, data: {turbo: false}) do |f| %>
         <div class="row g-3 my-4 text-dark">
           <div class="col-10 mb-2">
             <%= f.label :email_address, class: 'form-label' %>
@@ -18,16 +20,10 @@
           </div>
 
           <div class="col-12">
-            <%= f.submit "Resend confirmation instructions", class: "btn btn-primary btn-md" %>
+            <%= f.submit "Send reset instructions", class: "btn btn-primary btn-md" %>
           </div>
         </div>
       <% end %>
-
-      <span class="text-muted">Didn't recieve
-        <%= link_to " confirmation ", new_company_session_path, class: "text-primary text-decoration-none" %>
-        instructions?
-      </span>
-
     </div>
   </div>
 </div>

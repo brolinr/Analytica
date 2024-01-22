@@ -6,7 +6,7 @@
       <h4 class="fw-bold ">Sign in to your account!</h4>
       <small class="mb-4">
         Are you new?
-        <%= link_to "Create an account", new_company_registration_path, class: "text-primary text-decoration-none" %>
+        <%= link_to "Create an account", new_company_onboarding_path, class: "text-primary text-decoration-none" %>
         for your business instead.
       </small>
 
@@ -32,6 +32,8 @@
             </div>
           </div>
       <% end %>
+      <hr/>
+      <%= render "companies/shared/links" %>
     </div>
   </div>
 </div>

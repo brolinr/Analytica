@@ -9,6 +9,7 @@ module LotsHelper
 
   def won_lot?(lot, company, bids = lot.bids)
     return false if bids.empty?
+
     bids.last.company == company && lot.auction.expired?
   end
 end
