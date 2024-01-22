@@ -17,7 +17,7 @@ RSpec.describe CompanyOnboardingsController, type: :controller do
       let(:request) { post :create, params: { company_onboarding: attributes_for(:company_onboarding) } }
 
       it 'creates company_onboarding', :aggregate_failures do
-        flash_path = 'controllers.company_onboadings.create.success'
+        flash_path = 'controllers.company_onboardings.create.success'
         expect { request }.to change(CompanyOnboarding, :count).from(0).to(1)
         expect(response).to redirect_to(root_path)
         expect(flash[:notice]).to eq(I18n.t(flash_path))

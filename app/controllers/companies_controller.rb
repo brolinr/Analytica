@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class CompaniesController < ApplicationController
   def new
     redirect_to root_path unless company_onboarding.is_a?(CompanyOnboarding)
     redirect_to root_path if company.is_a?(Company)
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @company = Company.new(
       name: company_onboarding.name,
       email: company_onboarding.email,
@@ -19,10 +21,10 @@ class CompaniesController < ApplicationController
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
-    
+
     if @company.save
       session[:company_id] = @company.id
-      redirect_to new_company_session_path, notice: 'Confirmation instructions have been sent to your email.'
+      redirect_to new_company_session_path, notice: I18n.t('controllers.company_onboardings.approved.success')
     else
       render :new
     end
