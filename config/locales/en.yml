@@ -47,10 +47,18 @@ en:
           errors:
             lot_watched: You have already added this lot to your collection
             deadline_passed: The deadline for the auction has already passed. You cannot watch the lot
+  mailers:
+    company_onboarding:
+      approve:
+        subject: Account approval
+      disapprove:
+        subject: Account approval
   controllers:
     company_onboardings:
+      approved:
+        success: An email has been sent to the company to complete registration
       create:
-        success: Your details have been sent for verification. We will send you an email soon
+        success: Your details have been submitted for verification. We will send you an email soon
     something_wrong: An error occurred. Please try again!
     lots:
       collect:

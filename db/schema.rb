@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_073753) do
     t.string "location"
     t.string "phone"
     t.string "address"
+    t.string "approval_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_company_onboardings_on_email", unique: true

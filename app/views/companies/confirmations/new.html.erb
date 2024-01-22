@@ -2,11 +2,13 @@
 
 <div class="container">
   <div class="row justify-content-center g-5 px-5">
+    <%= render "companies/shared/error_messages", resource: resource %>
+
     <div class="col-md-7 col-lg-8">
       <h4 class="fw-bold ">Resend confirmation instructions </h4>
       <small class="mb-5">
         Are you new?
-        <%= link_to "Create an account", new_company_registration_path, class: "text-primary text-decoration-none" %>
+        <%= link_to "Create an account", new_company_onboarding_path, class: "text-primary text-decoration-none" %>
         for your business instead.
       </small>
 

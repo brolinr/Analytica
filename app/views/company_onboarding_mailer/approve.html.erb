@@ -9,14 +9,15 @@
         Your account details have been validated click the button below to finish setting your account.
       </p>
 
-      <button href=""<%= @finish_url %> style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px; margin-bottom: 20px;">
+      <a href="<%= @finish_url %>" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px; margin-bottom: 20px;">
         Confirm account
-      </button>
+      </a>
       
-      <p style="color: #17a2b8;">
+      <p>
         If the button above doesn't work, you can directly click the link below.
-        <a  style="font-size: 10px" href="<%= @finish_url %>"><%= @finish_url %></a>
       </p>
+      
+      <a style="font-size: 14px" href="<%= @finish_url %>"><%= @finish_url %></a>
     </div>
   </div>
 </div>

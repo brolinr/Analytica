@@ -4,7 +4,26 @@ Rails.application.routes.draw do
   get 'contact', to: 'static_pages#contact'
   get 'email', to: 'static_pages#email'
 
-  devise_for :companies
+
+
+  resources :companies, only: %i[new create]
+
+  devise_for :companies, skip: [:sessions, :passwords, :confirmations]
+
+  # Move the devise_scope block here
+  devise_scope :company do
+    get '/sign_in', to: 'devise/sessions#new', as: :new_company_session
+    post '/sign_in', to: 'devise/sessions#create', as: :company_session
+    delete 'company/sign_out', to: 'devise/sessions#destroy', as: :destroy_company_session
+    get 'company/password', to: 'devise/passwords#new', as: :new_company_password
+    get 'company/password/edit', to: 'devise/passwords#edit', as: :edit_company_password
+    put 'company/password', to: 'devise/passwords#update', as: :company_password
+    post 'company/password', to: 'devise/passwords#create', as: :company_passwords
+    get 'company/confirmation', to: 'devise/confirmations#show', as: :company_confirmation
+    get 'company/confirmation/new', to: 'devise/confirmations#new', as: :new_company_confirmation
+    post 'company/confirmation', to: 'devise/confirmations#create', as: :company_confirmations
+  end
+
   namespace :reverse_auction do
     root to: 'dashboard#index'
     resources :auctions, except: :index do

@@ -10,7 +10,7 @@
         We regret to inform you that your registration has been disapproved because:
       </p>
 
-      <p><%= @company_onboarding.reason_for_disapproval %></p>
+      <strong><%= @company_onboarding.reason_for_disapproval %></strong>
 
       <p>
         If you wish to to use our services rectify the above issue and restart the process through
@@ -19,13 +19,13 @@
 
       <p>Thank you for your understanding.</p>
 
-      <button href=""<%= @restart_process_path %> style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px; margin-bottom: 20px;">
+      <a href="<%= @restart_process_path %>" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px; margin-bottom: 20px;">
         Confirm account
-      </button>
+      </a>
       
       <p style="color: #17a2b8;">
         If the button above doesn't work, you can directly click the link below.
-        <a  style="font-size: 10px" href="<%= @restart_process_path%>"><%= @restart_process_path %></a>
+        <a style="font-size: 14px" href="<%= @restart_process_path%>"><%= @restart_process_path %></a>
       </p>
     </div>
   </div>

@@ -11,6 +11,7 @@ class CreateCompanyOnboardings < ActiveRecord::Migration[7.0]
       t.string :location
       t.string :phone
       t.string :address
+      t.string :approval_token
       t.timestamps
     end
 
