@@ -85,14 +85,14 @@
         </h3>
         <%= form_with model: @company, url: companies_path, method: :post, data: {turbo: false} do |f| %>
           <div class="row mt-5 mb-3">
-            <%= f.hidden_field :approval_token, value: @company_onboarding.approval_token%>
+            <%= f.hidden_field :approval_token, value: @company_onboarding.tokens.find_by(purpose: 0, status: 0).secret%>
             <div class="col-sm-6">
               <%= f.label :password, class: 'fw-bold' %>
-              <%= f.text_field :password, class: 'form-control' %>
+              <%= f.password_field :password, class: 'form-control' %>
             </div>
             <div class="col-sm-6">
               <%= f.label :password_confirmation, class: 'fw-bold' %>
-              <%= f.text_field :password_confirmation, class: 'form-control' %>
+              <%= f.password_field :password_confirmation, class: 'form-control' %>
             </div>
           </div>
           <%= f.submit 'Submit', class: 'btn btn-primary mb-4' %>

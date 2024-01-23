@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_14_073753) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_22_175739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -168,6 +168,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_073753) do
     t.integer "lot_number"
     t.index ["auction_id"], name: "index_lots_on_auction_id"
     t.index ["company_id"], name: "index_lots_on_company_id"
+  end
+
+  create_table "tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "expired_at"
+    t.integer "status", default: 0
+    t.integer "purpose"
+    t.string "secret"
+    t.string "generator_type", null: false
+    t.uuid "generator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["generator_type", "generator_id"], name: "index_tokens_on_generator"
   end
 
   create_table "watched_lots", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -33,9 +33,7 @@ class CompaniesController < ApplicationController
   private
 
   def company_onboarding
-    @company_onboarding ||= CompanyOnboarding.find_by(
-      approval_token: params[:approval_token] || params[:company][:approval_token]
-    )
+    @company_onboarding ||= Token.find_by(secret: params[:approval_token]).generator
   end
 
   def company
