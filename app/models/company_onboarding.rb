@@ -7,6 +7,8 @@ class CompanyOnboarding < ApplicationRecord
   enum approval: { pending_review: 0, approved: 1, disapproved: 2 }
   validates :reason_for_disapproval, length: { maximum: 300 }
 
+  has_many :tokens, as: :generator, dependent: :destroy
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       about address approval buyer created_at email id

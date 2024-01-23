@@ -6,6 +6,8 @@
 - Setup admin model
 - Onboarding process
 - Adding simple cov
+- Finished onboarding process
+- Add edit for company onboarding
 
 ## Version 1.0.0 (2023-10-15)
 
